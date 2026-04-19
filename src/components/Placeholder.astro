@@ -1,0 +1,152 @@
+---
+// Marker wrapper that flags content as placeholder / draft.
+// Uses slots so it wraps whatever is inside without imposing structure.
+//
+// Variants:
+//   - "placeholder" (default): fictional / invented content. Fuchsia border.
+//   - "draft": real-copy draft that Andrew should confirm. Amber border.
+//
+// Props:
+//   - note (required): short explanation of what should replace this.
+//   - variant: "placeholder" | "draft"
+//   - tone: "light" | "dark" — adjusts note background for dark sections.
+//   - label: override the default badge text.
+
+export interface Props {
+  note: string;
+  variant?: "placeholder" | "draft";
+  tone?: "light" | "dark";
+  label?: string;
+}
+
+const {
+  note,
+  variant = "placeholder",
+  tone = "light",
+  label,
+} = Astro.props;
+
+const defaultLabel = variant === "draft" ? "DRAFT — REVIEW" : "PLACEHOLDER";
+const finalLabel = label ?? defaultLabel;
+---
+
+<div class:list={["ph", `ph-${variant}`, `ph-tone-${tone}`]}>
+  <span class="ph-badge" aria-hidden="true">
+    <span class="ph-badge-icon">{variant === "draft" ? "✎" : "⚠"}</span>
+    {finalLabel}
+  </span>
+  <div class="ph-body">
+    <slot />
+  </div>
+  <div class="ph-note">
+    <span class="ph-note-label">
+      {variant === "draft" ? "Needs review:" : "Needs replacement:"}
+    </span>
+    {note}
+  </div>
+</div>
+
+<style>
+  .ph {
+    position: relative;
+    padding: 26px 16px 14px;
+    margin: 28px 0;
+    border-radius: 12px;
+    border-width: 3px;
+    border-style: dashed;
+  }
+  .ph-body {
+    /* body pass-through */
+  }
+
+  /* PLACEHOLDER — fuchsia */
+  .ph-placeholder {
+    border-color: #ec4899;
+    background:
+      linear-gradient(180deg, rgba(236, 72, 153, 0.06), rgba(236, 72, 153, 0));
+  }
+  .ph-placeholder .ph-badge {
+    background: #be185d;
+  }
+  .ph-placeholder .ph-note {
+    background: #fdf2f8;
+    border-left: 4px solid #ec4899;
+    color: #831843;
+  }
+  .ph-placeholder .ph-note-label {
+    color: #be185d;
+    font-weight: 800;
+  }
+
+  /* DRAFT — amber */
+  .ph-draft {
+    border-color: #f59e0b;
+    background:
+      linear-gradient(180deg, rgba(245, 158, 11, 0.06), rgba(245, 158, 11, 0));
+  }
+  .ph-draft .ph-badge {
+    background: #b45309;
+  }
+  .ph-draft .ph-note {
+    background: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    color: #78350f;
+  }
+  .ph-draft .ph-note-label {
+    color: #b45309;
+    font-weight: 800;
+  }
+
+  /* Dark-section tone (e.g. brand-950 background). Keeps note legible. */
+  .ph-tone-dark .ph-note {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .ph-badge {
+    position: absolute;
+    top: -13px;
+    left: 16px;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    line-height: 1;
+  }
+  .ph-badge-icon {
+    font-size: 0.8rem;
+  }
+
+  .ph-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .ph-note-label {
+    margin-right: 0.35rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 640px) {
+    .ph {
+      padding: 22px 10px 12px;
+      margin: 22px 0;
+    }
+    .ph-badge {
+      font-size: 0.65rem;
+      padding: 3px 8px;
+    }
+    .ph-note {
+      font-size: 0.78rem;
+    }
+  }
+</style>

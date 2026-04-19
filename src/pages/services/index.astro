@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import CtaBar from "../../components/CtaBar.astro";
+import { services } from "../../data/services";
+
+const title = "Detailing Services | Drey's Mobile Detailing — Victor, NY";
+const description =
+  "Full service catalog: auto detailing, ceramic coating, paint correction, boat and marine detailing, RV detailing, and power sports. Mobile service in Victor, NY and the Finger Lakes.";
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Services", url: "/services/" },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <!-- Page hero -->
+  <section class="bg-brand-950 text-white py-20 md:py-28">
+    <div class="container-page max-w-4xl">
+      <span class="eyebrow text-accent-400">Our Services</span>
+      <h1 class="text-4xl md:text-5xl font-semibold mt-3 mb-5 text-white">
+        Every service we offer — in one place
+      </h1>
+      <p class="text-ink-200 text-lg leading-relaxed">
+        Whether you need a maintenance wash, a full restoration, or long-term paint protection, here's everything we do. Every service is mobile — we come to your home, office, or storage location anywhere in Victor, Rochester, and the Finger Lakes.
+      </p>
+    </div>
+  </section>
+
+  <!-- All services grid -->
+  <section class="section">
+    <div class="container-page">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {services.map((svc) => <ServiceCard service={svc} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBar
+    heading="Not sure which service you need?"
+    subheading="Call or text — we'll walk you through it and recommend the right package."
+  />
+</BaseLayout>

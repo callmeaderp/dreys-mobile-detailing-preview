@@ -1,0 +1,25 @@
+---
+import type { Service } from "../data/services";
+import { u } from "../data/url";
+
+export interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<a
+  href={u(`/services/${service.slug}/`)}
+  class="card block group h-full"
+  aria-label={`Learn about ${service.shortTitle}`}
+>
+  <div class="text-4xl mb-4" aria-hidden="true">{service.icon}</div>
+  <h3 class="text-xl font-semibold mb-2 group-hover:text-accent-600 transition-colors">
+    {service.shortTitle}
+  </h3>
+  <p class="text-ink-600 text-sm leading-relaxed mb-4">{service.summary}</p>
+  <span class="text-accent-600 text-sm font-semibold group-hover:text-accent-700">
+    Learn more →
+  </span>
+</a>

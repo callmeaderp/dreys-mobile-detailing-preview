@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — deep automotive navy + warm metallic gold accent */
+  --color-brand-50:  #f2f5fb;
+  --color-brand-100: #dfe7f3;
+  --color-brand-200: #bbcce7;
+  --color-brand-300: #8ea9d3;
+  --color-brand-400: #5e80bb;
+  --color-brand-500: #3c5fa1;
+  --color-brand-600: #2e4a83;
+  --color-brand-700: #263b69;
+  --color-brand-800: #1d2d50;
+  --color-brand-900: #141f39;
+  --color-brand-950: #0a1024;
+
+  --color-accent-50:  #fdf8ed;
+  --color-accent-100: #faedcb;
+  --color-accent-200: #f5d991;
+  --color-accent-300: #efbf5a;
+  --color-accent-400: #eaa434;
+  --color-accent-500: #d8861f;
+  --color-accent-600: #b86518;
+  --color-accent-700: #934a18;
+  --color-accent-800: #783b19;
+  --color-accent-900: #643119;
+  --color-accent-950: #3a180a;
+
+  --color-ink-50:  #f7f7f8;
+  --color-ink-100: #ececee;
+  --color-ink-200: #d5d6da;
+  --color-ink-300: #b1b3bb;
+  --color-ink-400: #878996;
+  --color-ink-500: #6c6e7b;
+  --color-ink-600: #595b66;
+  --color-ink-700: #4a4c54;
+  --color-ink-800: #3f4048;
+  --color-ink-900: #1f2024;
+  --color-ink-950: #0c0d10;
+
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    background: #ffffff;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    color: var(--color-brand-900);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .container-page {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease, color 150ms ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background: var(--color-accent-500);
+    color: var(--color-brand-950);
+    box-shadow: 0 4px 14px rgba(216,134,31,0.35);
+  }
+  .btn-primary:hover { background: var(--color-accent-400); box-shadow: 0 6px 18px rgba(216,134,31,0.45); }
+
+  .btn-ghost {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
+
+  .btn-dark {
+    background: var(--color-brand-900);
+    color: #fff;
+  }
+  .btn-dark:hover { background: var(--color-brand-800); }
+
+  .section {
+    padding-block: 4rem;
+  }
+  @media (min-width: 768px) {
+    .section { padding-block: 6rem; }
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--color-accent-600);
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-ink-200);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -20px rgba(20,31,57,0.35);
+    border-color: var(--color-brand-200);
+  }
+
+  .prose-custom p {
+    line-height: 1.75;
+    color: var(--color-ink-700);
+    margin-bottom: 1rem;
+  }
+  .prose-custom h2 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .prose-custom h3 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-custom ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .prose-custom ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    color: var(--color-ink-700);
+  }
+}

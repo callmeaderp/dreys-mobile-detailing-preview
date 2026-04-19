@@ -1,0 +1,178 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CtaBar from "../../components/CtaBar.astro";
+import ServiceCard from "../../components/ServiceCard.astro";
+import Placeholder from "../../components/Placeholder.astro";
+import { services } from "../../data/services";
+import { site, telHref } from "../../data/site";
+import { u } from "../../data/url";
+
+export function getStaticPaths() {
+  return services.map((svc) => ({
+    params: { slug: svc.slug },
+    props: { service: svc },
+  }));
+}
+
+const { service } = Astro.props;
+
+const title = `${service.title} | Drey's Mobile Detailing`;
+const description = service.metaDescription;
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Services", url: "/services/" },
+  { name: service.shortTitle, url: `/services/${service.slug}/` },
+];
+
+// Service schema — fixes the audit issue of missing Service / Offer markup
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${site.url}/services/${service.slug}/#service`,
+  name: service.shortTitle,
+  description: service.summary,
+  provider: { "@id": `${site.url}/#business` },
+  areaServed: site.serviceArea.map((a) => ({ "@type": "City", name: a })),
+  serviceType: service.shortTitle,
+  offers: service.pricing.map((tier) => ({
+    "@type": "Offer",
+    name: tier.name,
+    description: tier.description,
+    priceCurrency: "USD",
+    ...(tier.priceFrom?.match(/\$(\d+)/)
+      ? { price: tier.priceFrom.match(/\$(\d+)/)![1] }
+      : {}),
+  })),
+};
+
+// Related services (the ones that aren't this one)
+const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} schema={serviceSchema}>
+  <!-- Hero -->
+  <section class="bg-brand-950 text-white py-20 md:py-28 relative overflow-hidden">
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="absolute -top-40 right-0 w-[500px] h-[500px] rounded-full bg-accent-500/15 blur-[100px]"></div>
+    </div>
+    <div class="container-page max-w-4xl relative">
+      <!-- Breadcrumb trail -->
+      <nav class="text-sm text-ink-300 mb-5" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap gap-2 items-center">
+          <li><a href={u("/")} class="hover:text-accent-300">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href={u("/services/")} class="hover:text-accent-300">Services</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-accent-300" aria-current="page">{service.shortTitle}</li>
+        </ol>
+      </nav>
+
+      <div class="text-6xl mb-4" aria-hidden="true">{service.icon}</div>
+      <h1 class="text-4xl md:text-5xl font-semibold mb-5 text-white">{service.title}</h1>
+      <p class="text-ink-200 text-lg md:text-xl leading-relaxed mb-8 max-w-2xl">
+        {service.summary}
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href={telHref} class="btn btn-primary">
+          📞 Call for a Quote
+        </a>
+        <a href={u("/contact/")} class="btn btn-ghost">
+          Request a Booking
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro + Features -->
+  <section class="section">
+    <div class="container-page grid lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
+      <Placeholder
+        variant="draft"
+        note="Service intro drafted on the owner's behalf, not written by him. Needs review for accuracy on tools, products, and process. Should end up reading like a verbal description from the owner to a customer."
+      >
+        <div class="prose-custom">
+          <h2>About this service</h2>
+          <p>{service.intro}</p>
+        </div>
+      </Placeholder>
+
+      <Placeholder
+        variant="draft"
+        note="'What's included' bullets are a best-guess at what a typical job covers. Need to be added to, removed, or rewritten so every bullet is literally true for this service."
+      >
+        <div class="card bg-brand-50 border-brand-200">
+          <h3 class="font-semibold text-lg mb-4 text-brand-900">What's included</h3>
+          <ul class="space-y-3">
+            {service.features.map((feature) => (
+              <li class="flex gap-3 items-start text-sm leading-relaxed">
+                <span class="text-accent-500 font-bold mt-0.5" aria-hidden="true">✓</span>
+                <span class="text-ink-700">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Placeholder>
+    </div>
+  </section>
+
+  <!-- Pricing tiers -->
+  <section class="section bg-brand-50">
+    <div class="container-page">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="eyebrow">Packages</span>
+        <h2 class="text-3xl md:text-4xl font-semibold mt-3 mb-4">Pricing that fits your needs</h2>
+        <p class="text-ink-600 leading-relaxed">
+          Every vehicle is different — these are our starting price points. Final quote depends on vehicle size, condition, and any add-ons you'd like.
+        </p>
+      </div>
+
+      <Placeholder
+        note={`Every price, package name, and inclusion on this ${service.shortTitle.toLowerCase()} page is a placeholder. Real pricing needs to be confirmed before launch — either by approving the three tiers below as a price refresh, or by substituting the actual numbers from the live booking system (e.g. Basic Full Detail $249, Undrdog 5-for-5 $499, Basic Marine $25/ft).`}
+      >
+        <div class="grid md:grid-cols-3 gap-5">
+          {service.pricing.map((tier, i) => (
+            <div class={`card bg-white flex flex-col ${i === 1 ? "border-accent-400 ring-2 ring-accent-200" : ""}`}>
+              {i === 1 && (
+                <div class="inline-block self-start bg-accent-500 text-brand-950 text-xs font-bold uppercase tracking-wider px-2 py-1 rounded mb-3">
+                  Most Popular
+                </div>
+              )}
+              <h3 class="text-xl font-semibold mb-2">{tier.name}</h3>
+              {tier.priceFrom && (
+                <div class="text-accent-600 font-bold text-2xl mb-3">{tier.priceFrom}</div>
+              )}
+              <p class="text-ink-600 text-sm leading-relaxed mb-5">{tier.description}</p>
+              <ul class="space-y-2 mb-6 flex-1">
+                {tier.includes.map((inc) => (
+                  <li class="flex gap-2 text-sm text-ink-700">
+                    <span class="text-accent-500 mt-0.5" aria-hidden="true">✓</span>
+                    <span>{inc}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href={u("/contact/")} class={`btn ${i === 1 ? "btn-primary" : "btn-dark"} w-full`}>
+                Request this package
+              </a>
+            </div>
+          ))}
+        </div>
+      </Placeholder>
+    </div>
+  </section>
+
+  <!-- Related services -->
+  <section class="section">
+    <div class="container-page">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="eyebrow">More Services</span>
+        <h2 class="text-3xl md:text-4xl font-semibold mt-3">Other services we offer</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        {related.map((svc) => <ServiceCard service={svc} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBar />
+</BaseLayout>

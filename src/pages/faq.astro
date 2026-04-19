@@ -1,0 +1,110 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBar from "../components/CtaBar.astro";
+
+const title = "FAQ | Drey's Mobile Detailing — Your Questions Answered";
+const description =
+  "Common questions about mobile detailing in Victor, NY — how long it takes, what you need to provide, how much it costs, and how ceramic coating and paint correction work.";
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "FAQ", url: "/faq/" },
+];
+
+// FAQs also feed the FAQPage schema for rich snippets in Google.
+const faqs = [
+  {
+    q: "What does 'mobile detailing' actually mean?",
+    a: "It means we bring the entire detailing operation to you — water, power (via generator), lighting, and every tool and product we need. You don't have to drive anywhere or drop your vehicle off. We pull up to your driveway, office parking lot, boat slip, or RV storage spot and do the work on-site.",
+  },
+  {
+    q: "What do I need to provide?",
+    a: "Honestly, nothing. We bring water, electricity, and lighting. All you need is a reasonably accessible spot to park the vehicle and some space around it for us to move. If you have water access we can use, great — otherwise we're fully self-contained.",
+  },
+  {
+    q: "How long does a detail take?",
+    a: "It depends on the package and vehicle. A maintenance wash typically runs 1–2 hours. A full detail is usually 4–6 hours. Paint correction and ceramic coating installations are full-day (8+ hour) or multi-day jobs. We'll give you a realistic estimate when you book.",
+  },
+  {
+    q: "How much does detailing cost?",
+    a: "Our auto detailing starts at around $85 for a maintenance wash and ranges up to $275+ for a full interior and exterior detail. Ceramic coating starts around $550, and paint correction starts around $400. Marine and RV pricing is typically charged per foot. See the pricing section on each service page for specifics — and we're always happy to give you a firm quote over the phone.",
+  },
+  {
+    q: "What is ceramic coating and is it worth it?",
+    a: "A ceramic coating is a liquid polymer that chemically bonds to your paint, creating a hard, glossy, hydrophobic layer of protection that lasts multiple years. It makes your car dramatically easier to wash, resists water spots, chemical stains, and UV damage, and gives a much deeper gloss than wax or sealant. For anyone planning to keep their vehicle more than a couple of years, it's absolutely worth the investment.",
+  },
+  {
+    q: "What's the difference between paint correction and polishing?",
+    a: "Polishing is more of a gloss enhancement — it refines the existing finish and adds shine. Paint correction actually removes a microscopic layer of clear coat to level out swirls, scratches, and oxidation, permanently fixing the defects rather than just covering them up. Paint correction is often done before a ceramic coating so you're locking in a perfect finish.",
+  },
+  {
+    q: "Do you detail boats at the marina or only at home?",
+    a: "Both. We detail at slips on Canandaigua, Honeoye, Seneca, Conesus, and other Finger Lakes locations, at marinas on Lake Ontario, at boat storage yards, and at clients' homes. As long as there's a reasonable path to get our equipment to the boat, we can work there.",
+  },
+  {
+    q: "Can you detail in winter?",
+    a: "Yes, in many cases. For maintenance washes and interior-focused work, winter is no problem — we can often work in a garage. For ceramic coating and paint correction, we need controlled temperature conditions, so those are typically scheduled for warmer months or performed in a heated garage.",
+  },
+  {
+    q: "How often should I get my vehicle detailed?",
+    a: "For most daily drivers in the Rochester area, a maintenance wash monthly and a full detail twice a year is ideal — especially given our winters. We offer discounted maintenance plans for exactly this cadence. For show cars and garage queens, every other month or quarterly full details are typical.",
+  },
+  {
+    q: "Do you offer gift certificates?",
+    a: "Yes — gift certificates are a great option for birthdays, holidays, or new-car gifts. Call or text us to arrange one. We can do any dollar amount or a specific service package.",
+  },
+  {
+    q: "Do you take credit cards?",
+    a: "Yes, we accept all major credit cards as well as cash, check, Venmo, and Zelle.",
+  },
+  {
+    q: "Are you insured?",
+    a: "Absolutely. Drey's Mobile Detailing LLC carries full business liability insurance. Proof of insurance is available on request.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} schema={faqSchema}>
+  <section class="bg-brand-950 text-white py-20 md:py-28">
+    <div class="container-page max-w-4xl">
+      <span class="eyebrow text-accent-400">FAQ</span>
+      <h1 class="text-4xl md:text-5xl font-semibold mt-3 mb-5 text-white">
+        Frequently asked questions
+      </h1>
+      <p class="text-ink-200 text-lg leading-relaxed">
+        Everything we get asked, all in one place. Don't see your question? Call or text us — we're happy to talk through your specific situation.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page max-w-3xl">
+      <div class="space-y-3">
+        {faqs.map((faq, i) => (
+          <details class="group card bg-white open:border-accent-400" open={i === 0}>
+            <summary class="flex justify-between items-start gap-4 cursor-pointer list-none">
+              <h2 class="text-lg font-semibold text-brand-900 pr-4">{faq.q}</h2>
+              <span class="text-accent-500 text-2xl font-light leading-none mt-1 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-4 text-ink-700 leading-relaxed">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBar
+    heading="Still have questions?"
+    subheading="Pick up the phone — we're quick to respond and happy to chat through your specific situation."
+  />
+</BaseLayout>

@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBar from "../components/CtaBar.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { site } from "../data/site";
+
+const title = "About Andrew Drey | Drey's Mobile Detailing — Victor, NY";
+const description = `Meet Andrew Drey, owner of Drey's Mobile Detailing in Victor, NY. Family-owned since ${site.established}. Specializing in auto, marine, RV, and power sports detailing across the Finger Lakes.`;
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "About", url: "/about/" },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <section class="bg-brand-950 text-white py-20 md:py-28">
+    <div class="container-page max-w-4xl">
+      <span class="eyebrow text-accent-400">About</span>
+      <h1 class="text-4xl md:text-5xl font-semibold mt-3 mb-5 text-white">
+        Meet Andrew — the owner, operator, and detailer.
+      </h1>
+      <p class="text-ink-200 text-lg leading-relaxed">
+        When you book Drey's Mobile Detailing, Andrew is the one showing up in your driveway. No subcontractors, no rotating crew. Just one detailer who actually cares about the work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page grid lg:grid-cols-[1fr_1.3fr] gap-12 items-start">
+      <div>
+        <div class="sticky top-24 space-y-6">
+          <Placeholder
+            note="Initials card standing in for a real headshot. To be replaced with one authentic photo of the owner — branded shirt, truck, finished vehicle, or similar."
+          >
+            <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 flex items-center justify-center overflow-hidden">
+              <div class="text-center p-8">
+                <div class="w-24 h-24 rounded-full bg-accent-500 text-brand-950 font-bold text-3xl flex items-center justify-center mx-auto mb-4">
+                  AD
+                </div>
+                <div class="text-white font-semibold text-xl">Andrew Drey</div>
+                <div class="text-accent-300 italic text-sm mt-1">Owner & Detailer</div>
+              </div>
+            </div>
+          </Placeholder>
+
+          <div class="card bg-brand-50 border-brand-200">
+            <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-2">Established</div>
+            <div class="text-3xl font-bold text-brand-900 mb-1">{site.established}</div>
+            <div class="text-sm text-ink-600">5+ years serving Ontario County and the Finger Lakes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prose-custom">
+        <Placeholder
+          variant="draft"
+          note="Bio written in the owner's voice but not from his actual words. Needs review and rewriting wherever the phrasing doesn't ring true — especially the closing promise."
+        >
+          <div>
+        <h2>Knowledge &amp; training</h2>
+        <p>
+          Detailing isn't just cleaning a car — it's chemistry, materials science, and a lot of patience. Over the years I've put serious time into understanding why certain products work, why some techniques damage paint, and what actually makes a difference versus what just sounds good in a marketing pitch.
+        </p>
+        <p>
+          I stay current on new coatings, polishing technology, and the evolving materials used in modern vehicles. A 2024 matte-wrapped Tesla needs a completely different approach than a 1972 Chevelle with original lacquer. I treat every vehicle as its own puzzle.
+        </p>
+
+        <h2>Suggestions, not sales</h2>
+        <p>
+          I won't try to upsell you into a service you don't need. If your car really just needs a good wash and a wax, that's what I'll recommend. If it genuinely needs paint correction before a coating to look right, I'll tell you that honestly — and explain why.
+        </p>
+        <p>
+          The goal is a long-term relationship, not a one-time transaction. I'd rather you come back twice a year for maintenance than feel burned on a single oversold job.
+        </p>
+
+        <h2>Auto spa, not auto shop</h2>
+        <p>
+          I never double-book appointments. When I'm at your house working on your vehicle, you have my full attention for the entire time I'm there. That means I can take the time to do things right — not rush to the next job.
+        </p>
+        <p>
+          I bring everything with me: water, power (generator), lighting, all the chemistry, all the tools. You don't need to provide anything except the vehicle and a reasonably accessible spot to work.
+        </p>
+
+        <h2>What you can expect</h2>
+        <ul>
+          <li>Arrival on time, in a clearly-branded vehicle</li>
+          <li>A quick walkaround to confirm scope and note any existing damage</li>
+          <li>A realistic estimate of how long the job will take</li>
+          <li>Work you can watch if you want — transparency all the way through</li>
+          <li>A final walkaround to make sure you're happy before I leave</li>
+        </ul>
+
+        <h2>Maintenance plans</h2>
+        <p>
+          The single best thing you can do for your vehicle is detail it regularly. I offer monthly and seasonal maintenance plans at significant discounts compared to one-off visits. Ask about them when you book — they pay for themselves within a year for most clients.
+        </p>
+
+        <h2>The promise</h2>
+        <p class="italic text-accent-700 font-medium">
+          "In pursuit of perfection" isn't a marketing slogan — it's the actual standard I hold every job to. If something isn't right, I fix it. That's the whole point.
+        </p>
+          </div>
+        </Placeholder>
+      </div>
+    </div>
+  </section>
+
+  <CtaBar
+    heading="Ready to work with Andrew?"
+    subheading="Every detail is personally performed by the owner. Reach out and let's talk about your vehicle."
+  />
+</BaseLayout>

@@ -1,0 +1,6 @@
+# Preview build — host: callmeaderp.github.io/dreys-mobile-detailing-preview
+# Disallow all crawling so the preview doesn't compete with the production
+# domain in search results. Swap this out when the site moves to the real
+# domain.
+User-agent: *
+Disallow: /

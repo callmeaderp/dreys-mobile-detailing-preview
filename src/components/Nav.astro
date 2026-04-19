@@ -1,0 +1,143 @@
+---
+import { site, telHref } from "../data/site";
+import { services } from "../data/services";
+import { u } from "../data/url";
+
+const path = Astro.url.pathname;
+const base = import.meta.env.BASE_URL; // trailing slash
+const isActive = (href: string) => {
+  const full = u(href);
+  return href === "/" ? path === base : path.startsWith(full);
+};
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/services/", label: "Services", hasDropdown: true },
+  { href: "/gallery/", label: "Gallery" },
+  { href: "/service-area/", label: "Service Area" },
+  { href: "/about/", label: "About" },
+  { href: "/faq/", label: "FAQ" },
+  { href: "/contact/", label: "Contact" },
+];
+---
+
+<header class="sticky top-0 z-40 bg-brand-950/95 backdrop-blur-md border-b border-brand-800">
+  <div class="container-page flex items-center justify-between gap-4 py-3">
+    <!-- Logo -->
+    <a href={u("/")} class="flex items-center gap-3 group" aria-label={`${site.name} home`}>
+      <div class="flex items-center justify-center w-10 h-10 rounded-md bg-accent-500 text-brand-950 font-bold font-[var(--font-display)] text-lg shadow-lg">
+        {site.logoInitials}
+      </div>
+      <div class="hidden sm:block">
+        <div class="text-white font-bold leading-tight">{site.name}</div>
+        <div class="text-accent-300 text-xs italic leading-tight">{site.tagline}</div>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Primary">
+      {navItems.map((item) => (
+        <div class="relative group">
+          <a
+            href={u(item.href)}
+            class={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+              isActive(item.href)
+                ? "text-accent-300"
+                : "text-white hover:text-accent-200"
+            }`}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+            {item.hasDropdown && (
+              <span class="ml-1 inline-block text-xs" aria-hidden="true">▾</span>
+            )}
+          </a>
+          {item.hasDropdown && (
+            <div class="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible focus-within:opacity-100 focus-within:visible transition-all duration-150">
+              <div class="bg-white rounded-lg shadow-xl border border-ink-200 py-2 min-w-[260px]">
+                {services.map((svc) => (
+                  <a
+                    href={u(`/services/${svc.slug}/`)}
+                    class="flex items-start gap-3 px-4 py-2.5 hover:bg-brand-50 transition-colors"
+                  >
+                    <span class="text-xl leading-none mt-0.5" aria-hidden="true">{svc.icon}</span>
+                    <div>
+                      <div class="font-medium text-brand-900 text-sm">{svc.shortTitle}</div>
+                      <div class="text-xs text-ink-500 line-clamp-1">{svc.summary.slice(0, 55)}…</div>
+                    </div>
+                  </a>
+                ))}
+                <div class="border-t border-ink-200 mt-2 pt-2">
+                  <a href={u("/services/")} class="block px-4 py-2 text-sm font-medium text-accent-700 hover:bg-brand-50">
+                    View all services →
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <!-- CTA + mobile toggle -->
+    <div class="flex items-center gap-2">
+      <a href={telHref} class="btn btn-primary hidden md:inline-flex">
+        <span aria-hidden="true">📞</span>
+        Call Now
+      </a>
+      <button
+        type="button"
+        class="lg:hidden text-white p-2 rounded-md hover:bg-brand-800 transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        id="mobile-menu-btn"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav panel -->
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-brand-800 bg-brand-950">
+    <nav class="container-page py-4 flex flex-col gap-1" aria-label="Mobile primary">
+      {navItems.map((item) => (
+        <a
+          href={u(item.href)}
+          class={`px-3 py-3 rounded-md text-base font-medium transition-colors ${
+            isActive(item.href)
+              ? "bg-brand-800 text-accent-300"
+              : "text-white hover:bg-brand-900"
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="mt-2 pt-4 border-t border-brand-800 flex flex-col gap-2">
+        <a href={telHref} class="btn btn-primary w-full">
+          <span aria-hidden="true">📞</span>
+          Call {site.phone.display}
+        </a>
+        <a href={`sms:${site.phone.tel}`} class="btn btn-ghost w-full">
+          💬 Text Us
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (function() {
+    const btn = document.getElementById("mobile-menu-btn");
+    const panel = document.getElementById("mobile-menu");
+    if (!btn || !panel) return;
+    btn.addEventListener("click", () => {
+      const isOpen = !panel.classList.contains("hidden");
+      panel.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(!isOpen));
+    });
+  })();
+</script>

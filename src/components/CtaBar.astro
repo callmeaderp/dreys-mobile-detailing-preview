@@ -1,0 +1,42 @@
+---
+import { site, telHref, smsHref } from "../data/site";
+import { u } from "../data/url";
+
+export interface Props {
+  heading?: string;
+  subheading?: string;
+  variant?: "default" | "compact";
+}
+
+const {
+  heading = "Ready to book your detail?",
+  subheading = "Call or text — we usually respond the same day.",
+  variant = "default",
+} = Astro.props;
+---
+
+<section class={variant === "compact" ? "py-12" : "section"}>
+  <div class="container-page">
+    <div class="rounded-2xl bg-gradient-to-br from-brand-900 to-brand-950 px-6 md:px-12 py-10 md:py-14 text-center relative overflow-hidden">
+      <!-- Decorative accent -->
+      <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-accent-500/10 blur-3xl" aria-hidden="true"></div>
+      <div class="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-accent-500/10 blur-3xl" aria-hidden="true"></div>
+
+      <div class="relative">
+        <h2 class="text-white text-3xl md:text-4xl font-semibold mb-3">{heading}</h2>
+        <p class="text-ink-200 text-lg max-w-2xl mx-auto mb-8">{subheading}</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href={telHref} class="btn btn-primary text-base">
+            📞 Call {site.phone.display}
+          </a>
+          <a href={smsHref} class="btn btn-ghost text-base">
+            💬 Text Us
+          </a>
+          <a href={u("/contact/")} class="btn btn-ghost text-base">
+            📅 Request Booking
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

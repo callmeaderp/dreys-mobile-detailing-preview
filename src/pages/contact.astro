@@ -1,0 +1,221 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site, telHref, smsHref, mailHref } from "../data/site";
+
+const title = "Contact & Book | Drey's Mobile Detailing — Victor, NY";
+const description =
+  "Get in touch with Drey's Mobile Detailing. Call, text, or email to book your auto, marine, RV, or power sports detail in Victor, NY, Rochester, or the Finger Lakes.";
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Contact", url: "/contact/" },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <section class="bg-brand-950 text-white py-20 md:py-28">
+    <div class="container-page max-w-4xl">
+      <span class="eyebrow text-accent-400">Contact</span>
+      <h1 class="text-4xl md:text-5xl font-semibold mt-3 mb-5 text-white">
+        Let's get your detail booked.
+      </h1>
+      <p class="text-ink-200 text-lg leading-relaxed">
+        Call, text, or send a note — we usually respond within a few hours. Whatever is easiest for you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page max-w-6xl grid lg:grid-cols-[1fr_1.3fr] gap-10">
+      <!-- Contact info card -->
+      <div class="space-y-6">
+        <!-- Primary phone CTA -->
+        <a href={telHref} class="card bg-accent-500 border-accent-500 text-brand-950 block hover:bg-accent-400 transition-colors">
+          <div class="text-xs uppercase tracking-wider font-bold mb-1">Call or text</div>
+          <div class="text-3xl font-bold mb-1">{site.phone.display}</div>
+          <div class="text-sm">Fastest way to reach us</div>
+        </a>
+
+        <!-- Email -->
+        <a href={mailHref} class="card bg-white block">
+          <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-2">Email</div>
+          <div class="text-lg font-semibold text-brand-900 break-all">{site.email}</div>
+        </a>
+
+        <!-- Hours -->
+        <div class="card bg-white">
+          <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-3">Hours</div>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between"><dt class="font-medium">Monday – Friday</dt><dd class="text-ink-600">9am – 5pm</dd></div>
+            <div class="flex justify-between"><dt class="font-medium">Saturday</dt><dd class="text-ink-600">By appointment</dd></div>
+            <div class="flex justify-between"><dt class="font-medium">Sunday</dt><dd class="text-ink-600">Closed</dd></div>
+          </dl>
+          <div class="text-xs text-ink-500 mt-3 pt-3 border-t border-ink-200">
+            Booked appointments often extend past posted hours — we're flexible.
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="card bg-white">
+          <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-2">Based In</div>
+          <address class="not-italic text-brand-900 font-semibold mb-1">
+            {site.address.street}<br />
+            {site.address.locality}, {site.address.region} {site.address.postal}
+          </address>
+          <div class="text-sm text-ink-600">
+            We're <strong>mobile</strong> — we come to you.
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="card bg-white">
+          <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-3">Follow</div>
+          <div class="flex flex-wrap gap-2">
+            <a href={site.social.facebook} class="btn btn-dark text-sm" target="_blank" rel="noopener">
+              Facebook
+            </a>
+            <a href={site.social.instagram} class="btn btn-dark text-sm" target="_blank" rel="noopener">
+              Instagram
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact form -->
+      <div class="card bg-white">
+        <h2 class="text-2xl md:text-3xl font-semibold mb-2">Request a booking</h2>
+        <p class="text-ink-600 leading-relaxed mb-6">
+          Fill out a few details and we'll get back to you with availability and a firm quote. For fastest response, <a href={telHref} class="text-accent-700 font-semibold hover:underline">call</a> or <a href={smsHref} class="text-accent-700 font-semibold hover:underline">text</a> directly.
+        </p>
+
+        <form
+          action={mailHref}
+          method="post"
+          enctype="text/plain"
+          class="space-y-5"
+        >
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-sm font-semibold text-brand-900 mb-1">
+                Name <span class="text-accent-600">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+              />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm font-semibold text-brand-900 mb-1">
+                Phone <span class="text-accent-600">*</span>
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                placeholder="(315) 555-1234"
+                class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-semibold text-brand-900 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+            />
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label for="vehicle" class="block text-sm font-semibold text-brand-900 mb-1">
+                Vehicle (year, make, model)
+              </label>
+              <input
+                type="text"
+                id="vehicle"
+                name="vehicle"
+                placeholder="e.g. 2018 Toyota Tacoma"
+                class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+              />
+            </div>
+            <div>
+              <label for="service" class="block text-sm font-semibold text-brand-900 mb-1">
+                Service of interest
+              </label>
+              <select
+                id="service"
+                name="service"
+                class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200 bg-white"
+              >
+                <option value="">Choose one…</option>
+                <option>Auto Detailing</option>
+                <option>Ceramic Coating</option>
+                <option>Paint Correction</option>
+                <option>Boat / Marine Detailing</option>
+                <option>RV / Camper Detailing</option>
+                <option>Power Sports</option>
+                <option>Maintenance Plan</option>
+                <option>Not sure — please advise</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="location" class="block text-sm font-semibold text-brand-900 mb-1">
+              Service location (town / zip)
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="e.g. Pittsford, NY 14534"
+              class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+            />
+          </div>
+
+          <div>
+            <label for="preferred" class="block text-sm font-semibold text-brand-900 mb-1">
+              Preferred date / flexibility
+            </label>
+            <input
+              type="text"
+              id="preferred"
+              name="preferred"
+              placeholder="e.g. Any Saturday in May"
+              class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold text-brand-900 mb-1">
+              Anything else we should know?
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              placeholder="Swirls, stains, pet hair, rust, specific goals… the more detail the better."
+              class="w-full rounded-md border border-ink-300 px-3 py-2.5 text-sm focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-200"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-full text-base">
+            Send Request →
+          </button>
+          <p class="text-xs text-ink-500 text-center">
+            This form opens your email client. Prefer a faster response? <a href={telHref} class="text-accent-700 font-semibold underline">Call or text us</a> directly.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

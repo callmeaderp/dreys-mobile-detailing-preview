@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { telHref } from "../data/site";
+import { u } from "../data/url";
+
+const title = "Page Not Found | Drey's Mobile Detailing";
+const description = "The page you were looking for doesn't exist. Try the home page or give us a call.";
+---
+
+<BaseLayout title={title} description={description} noindex={true}>
+  <section class="section">
+    <div class="container-page max-w-2xl text-center py-20">
+      <div class="text-7xl mb-6" aria-hidden="true">🧽</div>
+      <h1 class="text-4xl md:text-5xl font-semibold mb-5">This page got detailed out of existence.</h1>
+      <p class="text-ink-600 text-lg leading-relaxed mb-8">
+        We can't find the page you're looking for. Head back to the home page, or give us a call and we'll point you the right way.
+      </p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href={u("/")} class="btn btn-primary">Back to home</a>
+        <a href={telHref} class="btn btn-dark">Call us</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

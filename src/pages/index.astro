@@ -1,0 +1,234 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import Testimonial from "../components/Testimonial.astro";
+import CtaBar from "../components/CtaBar.astro";
+import Placeholder from "../components/Placeholder.astro";
+import { services } from "../data/services";
+import { site, telHref, smsHref } from "../data/site";
+import { u } from "../data/url";
+
+const title = "Drey's Mobile Detailing | Mobile Auto, Marine & RV Detailing in Victor, NY";
+const description =
+  "Mobile detailing that comes to you in Victor, NY, Rochester, and the Finger Lakes. Auto, marine, RV, and power sports detailing — including ceramic coating and paint correction. Family-owned since 2019.";
+---
+
+<BaseLayout title={title} description={description}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden bg-brand-950 text-white">
+    <!-- Background texture -->
+    <div class="absolute inset-0" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-950"></div>
+      <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent-500/20 blur-[100px]"></div>
+      <div class="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-brand-500/30 blur-[100px]"></div>
+      <!-- Subtle grid -->
+      <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    </div>
+
+    <div class="container-page relative py-24 md:py-36 grid lg:grid-cols-[1.3fr_1fr] items-center gap-12">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-brand-800/70 backdrop-blur-sm border border-brand-700 rounded-full px-4 py-1.5 text-xs font-medium text-accent-200 mb-6">
+          <span class="w-2 h-2 rounded-full bg-accent-400 animate-pulse"></span>
+          Family-owned · Mobile · Est. {site.established}
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-5 text-white">
+          Mobile detailing in <span class="text-accent-400">Victor, NY</span> — done the right way, every time.
+        </h1>
+
+        <p class="text-lg md:text-xl text-ink-200 leading-relaxed max-w-xl mb-8">
+          Auto, marine, RV, and power sports detailing that comes to your driveway, slip, or storage lot. Serving the greater Rochester area and the Finger Lakes with ceramic coating, paint correction, and full detailing packages.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-8">
+          <a href={telHref} class="btn btn-primary text-base">
+            📞 Call {site.phone.display}
+          </a>
+          <a href={smsHref} class="btn btn-ghost text-base">
+            💬 Text Now
+          </a>
+          <a href={u("/services/")} class="btn btn-ghost text-base">
+            View Services
+          </a>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap gap-6 text-sm text-ink-300">
+          <div class="flex items-center gap-2">
+            <span class="text-accent-400 text-lg" aria-hidden="true">✓</span>
+            Fully mobile — we bring everything
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-400 text-lg" aria-hidden="true">✓</span>
+            Owner-operated
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-accent-400 text-lg" aria-hidden="true">✓</span>
+            5+ years serving Ontario County
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative logo panel -->
+      <div class="hidden lg:flex items-center justify-center">
+        <div class="relative">
+          <div class="absolute inset-0 bg-accent-500/30 blur-3xl rounded-full" aria-hidden="true"></div>
+          <div class="relative w-64 h-64 rounded-2xl bg-gradient-to-br from-accent-400 to-accent-600 shadow-2xl flex items-center justify-center transform rotate-3">
+            <div class="text-brand-950">
+              <div class="text-8xl font-bold leading-none text-center font-[var(--font-display)]">
+                {site.logoInitials}
+              </div>
+              <div class="text-center text-sm font-semibold tracking-[0.3em] mt-3">DREY'S</div>
+              <div class="text-center text-xs mt-1 italic">Est. {site.established}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE OVERVIEW -->
+  <section class="section">
+    <div class="container-page">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="eyebrow">What We Do</span>
+        <h2 class="text-3xl md:text-5xl font-semibold mt-3 mb-5">
+          Full-service mobile detailing for every kind of ride
+        </h2>
+        <p class="text-ink-600 text-lg leading-relaxed">
+          From daily drivers to weekend classics, boats on Canandaigua, RVs on storage lots, and side-by-sides caked in Finger Lakes mud — we handle them all. Every detail is performed by the owner, never a rotating crew.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {services.map((svc) => <ServiceCard service={svc} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section bg-brand-50">
+    <div class="container-page grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="eyebrow">Why Drey's</span>
+        <h2 class="text-3xl md:text-4xl font-semibold mt-3 mb-5">
+          Suggestions, not sales.
+        </h2>
+        <p class="text-ink-700 text-lg leading-relaxed mb-4">
+          Every vehicle is different, and every owner wants something different out of their detail. Before we touch your car, boat, or RV, we talk about what you actually want and need — then we match the right package and products to the job.
+        </p>
+        <p class="text-ink-700 text-lg leading-relaxed mb-6">
+          We treat your vehicle like an auto <em>spa</em>, not an auto <em>shop</em>. Appointments are never double-booked. You get the owner's full attention, not a rushed wash-and-wax.
+        </p>
+        <a href={u("/about/")} class="btn btn-dark">
+          Meet Andrew →
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="card bg-white">
+          <div class="text-3xl mb-2" aria-hidden="true">🎓</div>
+          <h3 class="font-semibold text-lg mb-2">Knowledge first</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Chemistry, technique, and product selection matched to your vehicle — not a one-size-fits-all template.</p>
+        </div>
+        <div class="card bg-white">
+          <div class="text-3xl mb-2" aria-hidden="true">🏠</div>
+          <h3 class="font-semibold text-lg mb-2">We come to you</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Your driveway, office, slip, or storage lot. We bring water, power, and every tool we need.</p>
+        </div>
+        <div class="card bg-white">
+          <div class="text-3xl mb-2" aria-hidden="true">🧴</div>
+          <h3 class="font-semibold text-lg mb-2">Professional products</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">pH-balanced shampoos, professional-grade ceramic coatings, and the right polish for your paint.</p>
+        </div>
+        <div class="card bg-white">
+          <div class="text-3xl mb-2" aria-hidden="true">🗓️</div>
+          <h3 class="font-semibold text-lg mb-2">Maintenance plans</h3>
+          <p class="text-sm text-ink-600 leading-relaxed">Ask about monthly and seasonal plans — your car stays showroom-fresh, you save money.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE AREA -->
+  <section class="section">
+    <div class="container-page">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="eyebrow">Where We Work</span>
+        <h2 class="text-3xl md:text-4xl font-semibold mt-3 mb-5">
+          Serving Victor and the greater Rochester area
+        </h2>
+        <p class="text-ink-600 text-lg leading-relaxed">
+          We're based in Victor, NY and travel throughout Ontario County, Monroe County, and the Finger Lakes. Not sure if we cover your area? Just ask — if you're within reasonable distance, we'll make it work.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-4xl mx-auto mb-10">
+        {site.serviceArea.map((area) => (
+          <div class="bg-white border border-ink-200 rounded-lg px-4 py-3 text-center text-sm font-medium text-ink-700 hover:border-accent-400 hover:text-accent-700 transition-colors">
+            📍 {area}
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center">
+        <a href={u("/service-area/")} class="btn btn-dark">
+          Full service area details →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section bg-brand-950 text-white">
+    <div class="container-page">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-accent-400 text-xs tracking-[0.18em] uppercase font-bold">What Clients Say</span>
+        <h2 class="text-3xl md:text-4xl font-semibold mt-3 mb-5 text-white">
+          Reviews from the driveway
+        </h2>
+        <p class="text-ink-300 text-lg">
+          We take care of our clients' most valuable possessions. Here's what a few of them have had to say.
+        </p>
+      </div>
+
+      <Placeholder
+        tone="dark"
+        note="Three invented testimonials, used for layout only. Real Google reviews from the existing listing (e.g. Pam Barclay, Valerie Phillips, plus other 4–5 star reviews) should be substituted, or the section removed until real reviews are sourced."
+      >
+        <div class="grid md:grid-cols-3 gap-5">
+          <Testimonial
+            quote="Andrew transformed my 2015 F-150 into something that looks like it just rolled off the lot. He spent hours on the paint correction alone — the difference under sunlight is unreal."
+            author="Mike R."
+            location="Pittsford, NY"
+            stars={5}
+          />
+          <Testimonial
+            quote="Had my bass boat detailed before Canandaigua season. Gelcoat was oxidized and chalky — now it's glass. Worth every penny. I'm already booked for next spring."
+            author="Tom H."
+            location="Canandaigua, NY"
+            stars={5}
+          />
+          <Testimonial
+            quote="Honest, careful, and knows what he's doing. Ceramic coating my Audi and it still beads after a full year of Rochester winters. Easily the best detail I've had."
+            author="Sarah L."
+            location="Fairport, NY"
+            stars={5}
+          />
+        </div>
+      </Placeholder>
+
+      <div class="text-center mt-10">
+        <a href={site.social.facebook} class="text-accent-300 hover:text-accent-200 text-sm underline" target="_blank" rel="noopener">
+          See more reviews on Facebook →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <CtaBar
+    heading="Let's get your detail on the calendar."
+    subheading="Call or text for a quote. We'll walk you through the right package for your vehicle and your goals."
+  />
+</BaseLayout>

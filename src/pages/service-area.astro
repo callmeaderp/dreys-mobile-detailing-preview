@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBar from "../components/CtaBar.astro";
+import { site } from "../data/site";
+
+const title = "Service Area | Mobile Detailing in Victor, Rochester & the Finger Lakes";
+const description =
+  "Drey's Mobile Detailing serves Victor, NY, Rochester, Canandaigua, Pittsford, Fairport, Farmington, and the greater Finger Lakes region. See if we cover your area.";
+
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Service Area", url: "/service-area/" },
+];
+
+// Area clusters — grouped by region for SEO content depth
+const regions = [
+  {
+    name: "Ontario County (our home base)",
+    description: "Based in Victor, we cover all of Ontario County as our primary service area.",
+    cities: ["Victor", "Farmington", "Canandaigua", "Bloomfield", "Honeoye", "Phelps", "Clifton Springs", "Shortsville"],
+  },
+  {
+    name: "Monroe County (Rochester area)",
+    description: "Greater Rochester suburbs are a short drive — we frequently detail in these towns.",
+    cities: ["Pittsford", "Fairport", "Penfield", "Webster", "Brighton", "Henrietta", "Mendon", "Honeoye Falls", "East Rochester", "Rochester"],
+  },
+  {
+    name: "Finger Lakes & Beyond",
+    description: "For marine and RV work especially, we travel throughout the Finger Lakes region.",
+    cities: ["Geneva", "Naples", "Penn Yan", "Seneca Falls", "Canandaigua Lake", "Honeoye Lake", "Conesus Lake", "Hemlock Lake", "Lake Ontario shoreline"],
+  },
+  {
+    name: "Wayne & Livingston Counties",
+    description: "Call ahead for availability — we travel to these areas for larger jobs.",
+    cities: ["Macedon", "Palmyra", "Newark", "Lima", "Avon", "Geneseo"],
+  },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <section class="bg-brand-950 text-white py-20 md:py-28">
+    <div class="container-page max-w-4xl">
+      <span class="eyebrow text-accent-400">Where We Work</span>
+      <h1 class="text-4xl md:text-5xl font-semibold mt-3 mb-5 text-white">
+        Mobile detailing across Ontario County, Rochester &amp; the Finger Lakes
+      </h1>
+      <p class="text-ink-200 text-lg leading-relaxed">
+        Based in Victor, NY, we travel throughout Western New York to bring professional detailing services directly to our clients — whether you're in a driveway in Pittsford, at a slip on Canandaigua Lake, or parked at an RV storage lot in Farmington.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-10 mb-16">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-semibold mb-5">
+            Our base: Victor, New York
+          </h2>
+          <p class="text-ink-700 leading-relaxed mb-4">
+            Drey's Mobile Detailing is based at <strong>{site.address.street}, {site.address.locality}, {site.address.region} {site.address.postal}</strong>. Being in the center of Ontario County means we can quickly reach most of Western NY — the Thruway is minutes away, and we're within 30–45 minutes of almost every town in the greater Rochester metro.
+          </p>
+          <p class="text-ink-700 leading-relaxed mb-4">
+            Our mobile setup means we don't need you to come to a shop. We bring the water, the power, the chemistry, and the lighting. All you need is a reasonably accessible spot to park your vehicle, boat, or RV.
+          </p>
+          <p class="text-ink-700 leading-relaxed">
+            Not sure if we cover your area? Give us a call or shoot us a text — if you're within reasonable driving distance, we'll almost always find a way to make it work.
+          </p>
+        </div>
+        <div class="rounded-2xl overflow-hidden border border-ink-200 aspect-[4/3] lg:aspect-auto">
+          <iframe
+            title="Drey's Mobile Detailing location"
+            src="https://www.google.com/maps?q=6873+Chestnut+Hill,+Victor,+NY+14564&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0; min-height: 400px;"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <!-- Regional clusters -->
+      <div class="space-y-10">
+        {regions.map((region) => (
+          <div>
+            <h2 class="text-2xl md:text-3xl font-semibold mb-2">{region.name}</h2>
+            <p class="text-ink-600 leading-relaxed mb-5 max-w-3xl">{region.description}</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {region.cities.map((city) => (
+                <div class="bg-brand-50 border border-brand-200 rounded-lg px-4 py-3 text-sm font-medium text-brand-900">
+                  📍 {city}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBar
+    heading="Is your town on the list?"
+    subheading="Call or text — even if you don't see your area above, we may still be able to help."
+  />
+</BaseLayout>

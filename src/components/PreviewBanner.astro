@@ -1,0 +1,63 @@
+---
+// Site-wide banner that flags this build as a preview with placeholder
+// content. Intentionally styled to be obvious and impossible to miss.
+// Remove once the preview is approved and placeholder content is replaced.
+---
+
+<div class="preview-banner" role="status" aria-live="polite">
+  <div class="preview-banner-inner">
+    <span class="preview-banner-icon" aria-hidden="true">🚧</span>
+    <span class="preview-banner-text">
+      <strong>Preview build</strong> —
+      Sections marked <span class="preview-banner-chip preview-chip-placeholder">PLACEHOLDER</span> are invented content awaiting real replacements.
+      Sections marked <span class="preview-banner-chip preview-chip-draft">DRAFT</span> are written copy awaiting review.
+    </span>
+  </div>
+</div>
+
+<style>
+  .preview-banner {
+    background: repeating-linear-gradient(
+      45deg,
+      #fef3c7 0 18px,
+      #fde68a 18px 36px
+    );
+    border-bottom: 2px solid #b45309;
+    color: #78350f;
+    font-size: 0.82rem;
+    line-height: 1.35;
+    padding: 0.55rem 1rem;
+  }
+  .preview-banner-inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .preview-banner-icon {
+    font-size: 1.1rem;
+  }
+  .preview-banner-text strong {
+    font-weight: 800;
+  }
+  .preview-banner-chip {
+    display: inline-block;
+    padding: 0.05rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    color: #fff;
+    vertical-align: baseline;
+  }
+  .preview-chip-placeholder {
+    background: #be185d;
+  }
+  .preview-chip-draft {
+    background: #b45309;
+  }
+</style>
