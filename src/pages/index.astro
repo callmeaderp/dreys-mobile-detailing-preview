@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceCard from "../components/ServiceCard.astro";
 import Testimonial from "../components/Testimonial.astro";
 import CtaBar from "../components/CtaBar.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { services } from "../data/services";
 import { site, telHref, smsHref } from "../data/site";
 import { u } from "../data/url";
@@ -64,7 +63,7 @@ const description =
           </div>
           <div class="flex items-center gap-2">
             <span class="text-accent-400 text-lg" aria-hidden="true">✓</span>
-            5+ years serving Ontario County
+            Serving Ontario County since {site.established}
           </div>
         </div>
       </div>
@@ -192,35 +191,30 @@ const description =
         </p>
       </div>
 
-      <Placeholder
-        tone="dark"
-        note="Three invented testimonials, used for layout only. Real Google reviews from the existing listing (e.g. Pam Barclay, Valerie Phillips, plus other 4–5 star reviews) should be substituted, or the section removed until real reviews are sourced."
-      >
-        <div class="grid md:grid-cols-3 gap-5">
-          <Testimonial
-            quote="Andrew transformed my 2015 F-150 into something that looks like it just rolled off the lot. He spent hours on the paint correction alone — the difference under sunlight is unreal."
-            author="Mike R."
-            location="Pittsford, NY"
-            stars={5}
-          />
-          <Testimonial
-            quote="Had my bass boat detailed before Canandaigua season. Gelcoat was oxidized and chalky — now it's glass. Worth every penny. I'm already booked for next spring."
-            author="Tom H."
-            location="Canandaigua, NY"
-            stars={5}
-          />
-          <Testimonial
-            quote="Honest, careful, and knows what he's doing. Ceramic coating my Audi and it still beads after a full year of Rochester winters. Easily the best detail I've had."
-            author="Sarah L."
-            location="Fairport, NY"
-            stars={5}
-          />
-        </div>
-      </Placeholder>
+      <div class="grid md:grid-cols-3 gap-5">
+        <Testimonial
+          quote="Drey's did an excellent job detailing my BMW X5. It looks showroom fresh and it was a total mess before. I like the attention to detail — every inch was perfectly clean and shiny. I will definitely use him again."
+          author="Pam Barclay"
+          location="Google review"
+          stars={5}
+        />
+        <Testimonial
+          quote="He does a fantastic job. He is meticulous, reliable, and communicates well. Very knowledgeable about boats and which methods to use to achieve beautiful results. Long-lasting results and reasonably priced. We highly recommend him!"
+          author="Valerie Phillips"
+          location="Google review"
+          stars={5}
+        />
+        <Testimonial
+          quote="His knowledge of detailing and level of commitment is unmatched. He goes over every inch with you and quickly fixes anything you are not satisfied with. Excellent service. Best part is he comes to me."
+          author="Rick Sheffer"
+          location="Google review"
+          stars={5}
+        />
+      </div>
 
       <div class="text-center mt-10">
-        <a href={site.social.facebook} class="text-accent-300 hover:text-accent-200 text-sm underline" target="_blank" rel="noopener">
-          See more reviews on Facebook →
+        <a href="https://maps.google.com/maps?cid=13871751528665707962" class="text-accent-300 hover:text-accent-200 text-sm underline" target="_blank" rel="noopener">
+          Read our reviews on Google →
         </a>
       </div>
     </div>

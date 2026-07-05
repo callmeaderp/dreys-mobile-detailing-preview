@@ -2,7 +2,6 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CtaBar from "../../components/CtaBar.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
-import Placeholder from "../../components/Placeholder.astro";
 import { services } from "../../data/services";
 import { site, telHref } from "../../data/site";
 import { u } from "../../data/url";
@@ -87,32 +86,22 @@ const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
   <!-- Intro + Features -->
   <section class="section">
     <div class="container-page grid lg:grid-cols-[1.4fr_1fr] gap-12 items-start">
-      <Placeholder
-        variant="draft"
-        note="Service intro drafted on the owner's behalf, not written by him. Needs review for accuracy on tools, products, and process. Should end up reading like a verbal description from the owner to a customer."
-      >
-        <div class="prose-custom">
-          <h2>About this service</h2>
-          <p>{service.intro}</p>
-        </div>
-      </Placeholder>
+      <div class="prose-custom">
+        <h2>About this service</h2>
+        <p>{service.intro}</p>
+      </div>
 
-      <Placeholder
-        variant="draft"
-        note="'What's included' bullets are a best-guess at what a typical job covers. Need to be added to, removed, or rewritten so every bullet is literally true for this service."
-      >
-        <div class="card bg-brand-50 border-brand-200">
-          <h3 class="font-semibold text-lg mb-4 text-brand-900">What's included</h3>
-          <ul class="space-y-3">
-            {service.features.map((feature) => (
-              <li class="flex gap-3 items-start text-sm leading-relaxed">
-                <span class="text-accent-500 font-bold mt-0.5" aria-hidden="true">✓</span>
-                <span class="text-ink-700">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Placeholder>
+      <div class="card bg-brand-50 border-brand-200">
+        <h3 class="font-semibold text-lg mb-4 text-brand-900">What's included</h3>
+        <ul class="space-y-3">
+          {service.features.map((feature) => (
+            <li class="flex gap-3 items-start text-sm leading-relaxed">
+              <span class="text-accent-500 font-bold mt-0.5" aria-hidden="true">✓</span>
+              <span class="text-ink-700">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -127,37 +116,33 @@ const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
         </p>
       </div>
 
-      <Placeholder
-        note={`Every price, package name, and inclusion on this ${service.shortTitle.toLowerCase()} page is a placeholder. Real pricing needs to be confirmed before launch — either by approving the three tiers below as a price refresh, or by substituting the actual numbers from the live booking system (e.g. Basic Full Detail $249, Undrdog 5-for-5 $499, Basic Marine $25/ft).`}
-      >
-        <div class="grid md:grid-cols-3 gap-5">
-          {service.pricing.map((tier, i) => (
-            <div class={`card bg-white flex flex-col ${i === 1 ? "border-accent-400 ring-2 ring-accent-200" : ""}`}>
-              {i === 1 && (
-                <div class="inline-block self-start bg-accent-500 text-brand-950 text-xs font-bold uppercase tracking-wider px-2 py-1 rounded mb-3">
-                  Most Popular
-                </div>
-              )}
-              <h3 class="text-xl font-semibold mb-2">{tier.name}</h3>
-              {tier.priceFrom && (
-                <div class="text-accent-600 font-bold text-2xl mb-3">{tier.priceFrom}</div>
-              )}
-              <p class="text-ink-600 text-sm leading-relaxed mb-5">{tier.description}</p>
-              <ul class="space-y-2 mb-6 flex-1">
-                {tier.includes.map((inc) => (
-                  <li class="flex gap-2 text-sm text-ink-700">
-                    <span class="text-accent-500 mt-0.5" aria-hidden="true">✓</span>
-                    <span>{inc}</span>
-                  </li>
-                ))}
-              </ul>
-              <a href={u("/contact/")} class={`btn ${i === 1 ? "btn-primary" : "btn-dark"} w-full`}>
-                Request this package
-              </a>
-            </div>
-          ))}
-        </div>
-      </Placeholder>
+      <div class="grid md:grid-cols-3 gap-5">
+        {service.pricing.map((tier) => (
+          <div class={`card bg-white flex flex-col ${tier.popular ? "border-accent-400 ring-2 ring-accent-200" : ""}`}>
+            {tier.popular && (
+              <div class="inline-block self-start bg-accent-500 text-brand-950 text-xs font-bold uppercase tracking-wider px-2 py-1 rounded mb-3">
+                Most Popular
+              </div>
+            )}
+            <h3 class="text-xl font-semibold mb-2">{tier.name}</h3>
+            {tier.priceFrom && (
+              <div class="text-accent-600 font-bold text-2xl mb-3">{tier.priceFrom}</div>
+            )}
+            <p class="text-ink-600 text-sm leading-relaxed mb-5">{tier.description}</p>
+            <ul class="space-y-2 mb-6 flex-1">
+              {tier.includes.map((inc) => (
+                <li class="flex gap-2 text-sm text-ink-700">
+                  <span class="text-accent-500 mt-0.5" aria-hidden="true">✓</span>
+                  <span>{inc}</span>
+                </li>
+              ))}
+            </ul>
+            <a href={u("/contact/")} class={`btn ${tier.popular ? "btn-primary" : "btn-dark"} w-full`}>
+              Request this package
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 

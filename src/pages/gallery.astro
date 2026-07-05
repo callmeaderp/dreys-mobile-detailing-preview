@@ -1,30 +1,70 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CtaBar from "../components/CtaBar.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { site } from "../data/site";
 
-const title = "Gallery | Drey's Mobile Detailing — Before & After";
+import civicTypeR from "../assets/gallery/civic-type-r.jpg";
+import bmw3Series from "../assets/gallery/bmw-3-series.jpg";
+import audiQ5 from "../assets/gallery/audi-q5.jpg";
+import ram1500 from "../assets/gallery/ram-1500.jpg";
+import dodgeViper from "../assets/gallery/dodge-viper.jpg";
+import miniInterior from "../assets/gallery/mini-cooper-interior.jpg";
+import datsunRoadster from "../assets/gallery/datsun-roadster.jpg";
+
+const title = "Gallery | Drey's Mobile Detailing — Recent Work";
 const description =
-  "Before and after photos from recent details — auto, marine, RV, and power sports. See the transformation we bring to vehicles in Victor, NY and the Finger Lakes.";
+  "Real photos from recent details — daily drivers, trucks, classics, and exotics detailed in Victor, NY and the Finger Lakes. See the finish we deliver.";
 
 const breadcrumbs = [
   { name: "Home", url: "/" },
   { name: "Gallery", url: "/gallery/" },
 ];
 
-// Gallery entries — these would eventually link to real images.
-// For now, use styled placeholders that show what each category covers.
+// Real photos from completed jobs (owner's camera roll + social pages)
 const galleryItems = [
-  { label: "Full Paint Correction", category: "Auto", color: "from-brand-800 to-brand-950" },
-  { label: "Ceramic Coating Install", category: "Auto", color: "from-accent-600 to-accent-800" },
-  { label: "Classic Restoration", category: "Auto", color: "from-ink-700 to-ink-900" },
-  { label: "Gelcoat Oxidation Removal", category: "Marine", color: "from-blue-700 to-blue-950" },
-  { label: "Pontoon Deep Clean", category: "Marine", color: "from-cyan-700 to-cyan-950" },
-  { label: "Class A Motorhome", category: "RV", color: "from-green-700 to-green-950" },
-  { label: "Travel Trailer Detail", category: "RV", color: "from-emerald-700 to-emerald-950" },
-  { label: "Harley-Davidson Detail", category: "Power Sports", color: "from-red-800 to-red-950" },
-  { label: "Side-by-Side Mud Recovery", category: "Power Sports", color: "from-amber-700 to-amber-950" },
+  {
+    image: civicTypeR,
+    alt: "Bright blue Honda Civic Type R freshly detailed in a driveway",
+    label: "Honda Civic Type R",
+    category: "Full Detail",
+  },
+  {
+    image: dodgeViper,
+    alt: "Black Dodge Viper with a mirror-gloss finish in a garage",
+    label: "Dodge Viper",
+    category: "Show-Car Prep",
+  },
+  {
+    image: audiQ5,
+    alt: "Black Audi Q5 with clouds reflecting in the polished hood",
+    label: "Audi Q5",
+    category: "Paint Enhancement",
+  },
+  {
+    image: ram1500,
+    alt: "Black RAM 1500 pickup mid-detail with doors open",
+    label: "RAM 1500",
+    category: "Full Detail",
+  },
+  {
+    image: bmw3Series,
+    alt: "Glossy black BMW 3 Series after a full detail",
+    label: "BMW 3 Series",
+    category: "Full Detail",
+  },
+  {
+    image: miniInterior,
+    alt: "Spotless MINI Cooper interior after deep cleaning",
+    label: "MINI Cooper",
+    category: "Interior Detail",
+  },
+  {
+    image: datsunRoadster,
+    alt: "Restored classic Datsun roadster with deep red paint",
+    label: "Classic Datsun Roadster",
+    category: "Classic Care",
+  },
 ];
 ---
 
@@ -36,7 +76,7 @@ const galleryItems = [
         Recent work from the driveway
       </h1>
       <p class="text-ink-200 text-lg leading-relaxed mb-6">
-        Detailing is a visual craft. The best way to show the difference is to show before and after — cars, boats, RVs, and bikes that came in dull, dirty, or oxidized and left looking the way their owners remember them.
+        Detailing is a visual craft. These are real vehicles from real jobs — daily drivers, trucks, classics, and exotics that left looking the way their owners remember them.
       </p>
       <p class="text-accent-300 text-sm">
         More photos continuously posted on our <a href={site.social.instagram} class="underline hover:text-accent-200" target="_blank" rel="noopener">Instagram</a> and <a href={site.social.facebook} class="underline hover:text-accent-200" target="_blank" rel="noopener">Facebook</a>.
@@ -46,34 +86,33 @@ const galleryItems = [
 
   <section class="section">
     <div class="container-page">
-      <Placeholder
-        note="All tiles are color-gradient stand-ins, not real photos. Source images exist on the Facebook and Instagram pages and in the original camera roll (IMG_3919, IMG_3313, IMG_1052, etc.). Target: 6–12 of the strongest before/after transformations across auto, marine, RV, and power sports."
-      >
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {galleryItems.map((item) => (
-            <figure class="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-ink-200 hover:border-accent-400 transition-colors">
-              <div class={`absolute inset-0 bg-gradient-to-br ${item.color}`} aria-hidden="true"></div>
-              <div class="absolute inset-0 flex items-end p-5 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
-                <div>
-                  <div class="text-accent-300 text-xs uppercase tracking-widest font-bold mb-1">
-                    {item.category}
-                  </div>
-                  <div class="text-white text-xl font-semibold leading-tight">
-                    {item.label}
-                  </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {galleryItems.map((item) => (
+          <figure class="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-ink-200 hover:border-accent-400 transition-colors">
+            <Image
+              src={item.image}
+              alt={item.alt}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <figcaption class="absolute inset-0 flex items-end p-5 bg-gradient-to-t from-black/70 via-black/10 to-transparent">
+              <div>
+                <div class="text-accent-300 text-xs uppercase tracking-widest font-bold mb-1">
+                  {item.category}
+                </div>
+                <div class="text-white text-xl font-semibold leading-tight">
+                  {item.label}
                 </div>
               </div>
-              <div class="absolute top-3 right-3 bg-white/90 text-brand-900 text-xs font-semibold px-2 py-1 rounded">
-                Before &amp; After
-              </div>
-            </figure>
-          ))}
-        </div>
-      </Placeholder>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
 
       <div class="mt-12 text-center max-w-2xl mx-auto">
         <p class="text-ink-600 italic">
-          Photo library currently being migrated from social platforms to the new gallery. For the latest work, follow us on Instagram and Facebook.
+          For the latest work, follow us on Instagram and Facebook — new details posted regularly.
         </p>
       </div>
     </div>

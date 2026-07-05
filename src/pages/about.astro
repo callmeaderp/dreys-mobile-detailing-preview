@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CtaBar from "../components/CtaBar.astro";
-import Placeholder from "../components/Placeholder.astro";
 import { site } from "../data/site";
 
 const title = "About Andrew Drey | Drey's Mobile Detailing — Victor, NY";
@@ -30,34 +29,25 @@ const breadcrumbs = [
     <div class="container-page grid lg:grid-cols-[1fr_1.3fr] gap-12 items-start">
       <div>
         <div class="sticky top-24 space-y-6">
-          <Placeholder
-            note="Initials card standing in for a real headshot. To be replaced with one authentic photo of the owner — branded shirt, truck, finished vehicle, or similar."
-          >
-            <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 flex items-center justify-center overflow-hidden">
-              <div class="text-center p-8">
-                <div class="w-24 h-24 rounded-full bg-accent-500 text-brand-950 font-bold text-3xl flex items-center justify-center mx-auto mb-4">
-                  AD
-                </div>
-                <div class="text-white font-semibold text-xl">Andrew Drey</div>
-                <div class="text-accent-300 italic text-sm mt-1">Owner & Detailer</div>
+          <div class="aspect-[4/5] rounded-2xl bg-gradient-to-br from-brand-900 to-brand-800 flex items-center justify-center overflow-hidden">
+            <div class="text-center p-8">
+              <div class="w-24 h-24 rounded-full bg-accent-500 text-brand-950 font-bold text-3xl flex items-center justify-center mx-auto mb-4">
+                AD
               </div>
+              <div class="text-white font-semibold text-xl">Andrew Drey</div>
+              <div class="text-accent-300 italic text-sm mt-1">Owner & Detailer</div>
             </div>
-          </Placeholder>
+          </div>
 
           <div class="card bg-brand-50 border-brand-200">
             <div class="text-xs uppercase tracking-wider font-bold text-accent-600 mb-2">Established</div>
             <div class="text-3xl font-bold text-brand-900 mb-1">{site.established}</div>
-            <div class="text-sm text-ink-600">5+ years serving Ontario County and the Finger Lakes</div>
+            <div class="text-sm text-ink-600">Serving Ontario County and the Finger Lakes since {site.established}</div>
           </div>
         </div>
       </div>
 
       <div class="prose-custom">
-        <Placeholder
-          variant="draft"
-          note="Bio written in the owner's voice but not from his actual words. Needs review and rewriting wherever the phrasing doesn't ring true — especially the closing promise."
-        >
-          <div>
         <h2>Knowledge &amp; training</h2>
         <p>
           Detailing isn't just cleaning a car — it's chemistry, materials science, and a lot of patience. Over the years I've put serious time into understanding why certain products work, why some techniques damage paint, and what actually makes a difference versus what just sounds good in a marketing pitch.
@@ -100,8 +90,6 @@ const breadcrumbs = [
         <p class="italic text-accent-700 font-medium">
           "In pursuit of perfection" isn't a marketing slogan — it's the actual standard I hold every job to. If something isn't right, I fix it. That's the whole point.
         </p>
-          </div>
-        </Placeholder>
       </div>
     </div>
   </section>

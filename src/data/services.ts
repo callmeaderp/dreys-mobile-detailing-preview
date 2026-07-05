@@ -1,5 +1,9 @@
 // Service catalog — drives navigation, service index, and per-service pages.
 // Each service has its own page, Service schema, and detailed content.
+// Pricing comes from the owner's real booking-system catalog (April 2026):
+// Basic Full Detail $249 · Paint Enhancement $375 · Undrdog 5-for-5 $499
+// (+$100 Pro+) · Polishing & Paint Correction $275 (shop only) · Marine $25/ft.
+// RV and Power Sports never had published prices — those stay custom-quote.
 
 export type Service = {
   slug: string;
@@ -21,6 +25,8 @@ export type Service = {
     priceFrom?: string;
     description: string;
     includes: string[];
+    // Marks the tier that gets the "Most Popular" badge
+    popular?: boolean;
   }>;
   // Keywords this page targets
   keywords: string[];
@@ -33,58 +39,57 @@ export const services: Service[] = [
     shortTitle: "Auto Detailing",
     icon: "🚗",
     metaDescription:
-      "Professional mobile auto detailing in Victor, NY and the Rochester area. Interior and exterior detailing that comes to you. Serving Ontario County and the Finger Lakes since 2019.",
+      "Professional mobile auto detailing in Victor, NY and the Rochester area. Full details starting at $249 — interior and exterior detailing that comes to you. Serving Ontario County and the Finger Lakes since 2019.",
     summary:
       "Full interior and exterior detailing performed at your home or office, anywhere in Ontario County and the greater Rochester area.",
     intro:
-      "Every auto detail at Drey's starts with a careful inspection and a conversation about your goals for the vehicle. Whether you need a maintenance wash, a deep interior reset after a long winter, or a full show-ready detail on a weekend car, we bring every tool, product, and gallon of water with us. No shop drop-off, no waiting room — we pull up to your driveway in Victor, Farmington, Canandaigua, Pittsford, or anywhere else in the region and treat your vehicle like it's our own.",
+      "Every auto detail at Drey's starts with a careful inspection and a conversation about your goals for the vehicle. Whether you need a thorough reset on a daily driver, a deep interior clean after a long winter, or a show-ready finish on a weekend car, we bring every tool, product, and gallon of water with us. No shop drop-off, no waiting room — we pull up to your driveway in Victor, Farmington, Canandaigua, Pittsford, or anywhere else in the region and treat your vehicle like it's our own.",
     features: [
       "Completely mobile — we bring water, power, and every tool we need",
       "Hand-wash only, two-bucket method with pH-balanced shampoos",
       "Thorough interior vacuum, including seats, carpets, trunk, and crevices",
-      "Steam extraction for upholstery stains and matted carpets",
-      "Leather cleaning and conditioning on every package with leather surfaces",
+      "Deep cleaning for upholstery stains and matted carpets",
+      "Leather cleaning and conditioning on vehicles with leather surfaces",
       "Door jambs, wheel wells, and tailpipes detailed as standard",
       "All work performed by the owner — never a rotating crew",
     ],
     pricing: [
       {
-        name: "Maintenance Wash",
-        priceFrom: "From $85",
+        name: "Basic Full Detail",
+        priceFrom: "Starting at $249",
         description:
-          "Our monthly-plan favorite — keeps your car looking showroom-fresh between full details.",
+          "Our flagship detail — a thorough, comprehensive clean from the glossy exterior to an immaculate interior. Plan on about four hours on site.",
         includes: [
-          "Foam pre-wash + hand wash",
-          "Wheel & tire cleaning",
-          "Windows inside & out",
-          "Quick interior wipe-down and vacuum",
-          "Spray wax for gloss and protection",
+          "Full hand wash and dry",
+          "Deep interior vacuum — seats, carpets, trunk, and crevices",
+          "Interior surfaces cleaned and protected",
+          "Wheels, tires, and door jambs detailed",
+          "Windows inside and out",
+        ],
+        popular: true,
+      },
+      {
+        name: "Paint Enhancement Detail Package",
+        priceFrom: "Starting at $375",
+        description:
+          "Everything in the Basic Full Detail, plus a one-step machine polish that removes up to 50–60% of minor scratches, wash-induced marring, and holograms.",
+        includes: [
+          "Everything in the Basic Full Detail",
+          "One-step machine polish to refine the paint",
+          "Removes up to 50–60% of minor defects",
+          "Deep gloss boost with protection applied",
         ],
       },
       {
-        name: "Full Detail",
-        priceFrom: "From $275",
+        name: "Maintenance Plans",
+        priceFrom: "Ask for pricing",
         description:
-          "Our flagship detail for daily drivers that need a thorough reset inside and out.",
+          "Keep your vehicle showroom-fresh between full details with recurring visits on a schedule that fits — and save.",
         includes: [
-          "Clay bar decontamination of all painted surfaces",
-          "Deep interior vacuum and steam clean",
-          "Leather conditioning or fabric protection",
-          "Tire dressing and wheel well detailing",
-          "Hand-applied sealant for 3–6 months of protection",
-        ],
-      },
-      {
-        name: "Restoration Detail",
-        priceFrom: "Custom quote",
-        description:
-          "Classics, project cars, and vehicles that haven't seen real care in years.",
-        includes: [
-          "Multi-stage paint decontamination",
-          "Paint correction when needed (separate quote)",
-          "Full interior tear-down and deep clean",
-          "Engine bay detailing available",
-          "Recommendations for long-term maintenance",
+          "Recurring wash and interior refresh",
+          "Scheduled around your calendar",
+          "Discounted rate for repeat visits",
+          "Ask about monthly and seasonal options",
         ],
       },
     ],
@@ -102,60 +107,60 @@ export const services: Service[] = [
     shortTitle: "Ceramic Coating",
     icon: "💎",
     metaDescription:
-      "Professional ceramic coating installation in Victor, NY and Rochester. Long-term paint protection, hydrophobic finish, and deep gloss. Serving the Finger Lakes since 2019.",
+      "Professional Undrdog ceramic coating installation in Victor, NY and Rochester, starting at $499. Multi-year paint protection, hydrophobic finish, and deep gloss. Serving the Finger Lakes since 2019.",
     summary:
-      "Long-term paint protection with a deep, glossy, hydrophobic finish — installed carefully over properly prepared paint.",
+      "Undrdog ceramic coatings installed over properly prepared paint — long-term protection with a deep, glossy, hydrophobic finish.",
     intro:
-      "A ceramic coating is only as good as the prep underneath it. Every ceramic install at Drey's begins with a full decontamination wash, iron fallout removal, clay bar, and — if the paint needs it — a paint correction step to remove swirls and defects so the coating locks onto truly clean paint. We use professional-grade coatings that are rated for multi-year protection, and we don't cut corners on prep to hit a lower price point.",
+      "A ceramic coating is only as good as the prep underneath it. Every ceramic install at Drey's begins with a full strip wash, decontamination, and a one-step compound/polish that improves the paint and refines defects by up to 50–60% — so the coating locks onto truly clean paint. We install Undrdog coatings: the standard coating is rated for 2–3 years of protection, and the Undrdog Pro+ upgrade extends that to 3–5 years. We don't cut corners on prep to hit a lower price point.",
     features: [
-      "Multi-stage decontamination before every application",
-      "Optional paint correction for older or neglected finishes",
-      "Coating installed in a controlled, dust-free environment",
+      "Full strip wash and decontamination before every application",
+      "One-step compound/polish included to refine the paint first",
+      "Undrdog coatings rated for 2–3 years; Pro+ rated for 3–5 years",
       "Hydrophobic, self-cleaning finish",
       "Deep, mirror-like gloss",
       "Significantly easier to wash and maintain",
-      "Post-install maintenance wash schedule included",
+      "Basic interior detail or second correction pass included, based on your vehicle's needs",
     ],
     pricing: [
       {
-        name: "1-Year Coating",
-        priceFrom: "From $550",
+        name: "Undrdog 5-for-5 Coating Special",
+        priceFrom: "Starting at $499",
         description:
-          "A great entry point to ceramic — perfect for leased vehicles or newer paint in excellent shape.",
+          "The right entry into ceramic protection: full prep, one-step polish, and a 2–3 year Undrdog coating. About five hours on site.",
         includes: [
-          "Full decontamination wash",
-          "Iron fallout remover + clay bar",
-          "1-year ceramic coating applied by hand",
-          "Glass and wheel coating optional add-on",
+          "Full strip wash and decontamination",
+          "One-step compound/polish — refines defects up to 50–60%",
+          "2–3 year Undrdog ceramic coating",
+          "Basic interior detail or second correction step, depending on your needs",
         ],
       },
       {
-        name: "Multi-Year Coating",
-        priceFrom: "From $950",
+        name: "Undrdog Pro+ Upgrade",
+        priceFrom: "Starting at $599",
         description:
-          "Our most popular ceramic package — long-term protection with a dramatic gloss boost.",
+          "Everything in the 5-for-5 Special, upgraded to the Undrdog Pro+ coating rated for 3–5 years of protection — just $100 more.",
         includes: [
-          "Everything in the 1-year package",
-          "Single-stage paint correction included",
-          "Multi-year ceramic coating (2–5 year ratings available)",
-          "Wheel face coating included",
+          "Everything in the 5-for-5 Coating Special",
+          "Undrdog Pro+ coating, rated 3–5 years",
+          "Best value per year of protection",
         ],
+        popular: true,
       },
       {
-        name: "Show Car Coating",
+        name: "Specialty & Marine Coatings",
         priceFrom: "Custom quote",
         description:
-          "For enthusiasts who want the best possible finish on their vehicle.",
+          "Boats, RVs, wheels, glass, and trim — ceramic protection sized to the job. Call or text and we'll spec it together.",
         includes: [
-          "Multi-stage paint correction",
-          "Premium long-life coating system",
-          "Glass, wheel, and trim coating",
-          "Annual inspection and maintenance visit",
+          "Marine-grade gelcoat coatings",
+          "Wheel, glass, and trim add-ons",
+          "Multi-vehicle and fleet pricing available",
         ],
       },
     ],
     keywords: [
       "ceramic coating Victor NY",
+      "Undrdog ceramic coating",
       "ceramic coating Rochester NY",
       "paint protection Ontario County",
       "ceramic coating Finger Lakes",
@@ -167,53 +172,54 @@ export const services: Service[] = [
     shortTitle: "Paint Correction",
     icon: "✨",
     metaDescription:
-      "Expert paint correction and swirl removal in Victor, NY and Rochester. Single, two, and three-stage correction using machine polishing. Serving Ontario County and the Finger Lakes.",
+      "Expert paint correction and swirl removal in Victor, NY and Rochester, starting at $275. Machine polishing that restores clarity and depth. Serving Ontario County and the Finger Lakes.",
     summary:
       "Remove swirl marks, scratches, oxidation, and bring true clarity and depth back to your paint.",
     intro:
-      "Paint correction is the careful removal of a microscopic layer of clear coat to level out swirls, scratches, water spots, and oxidation. When it's done right, the difference is dramatic — a car with correction looks wet and glossy under every light, not just bright sun. We measure paint thickness before and during every correction to make sure we remove only what's needed, and we match the cut of the polish to the defects and the paint hardness.",
+      "Paint correction is the careful removal of a microscopic layer of clear coat to level out swirls, scratches, water spots, and oxidation. When it's done right, the difference is dramatic — corrected paint looks wet and glossy under every light, not just bright sun. Dedicated correction work is done at our shop in Victor, where controlled lighting and a dust-free space let us work the paint properly. If you'd rather not leave your vehicle, our mobile Paint Enhancement package brings a one-step polish to your driveway instead.",
     features: [
-      "Paint thickness measured with a digital gauge before any correction",
-      "Matched pad and polish combinations for your specific paint",
-      "Single, two, and three-stage correction available",
-      "Before/after documentation on every job",
+      "Machine polishing matched to your specific paint",
       "Swirl, scratch, water spot, and oxidation removal",
+      "Dedicated correction work performed at our Victor shop — controlled lighting, no dust",
+      "Mobile one-step paint enhancement available at your location",
+      "Classic and exotic cars handled with manual tools only — no automatic machines",
       "Almost always paired with a protective coating or sealant",
     ],
     pricing: [
       {
-        name: "Gloss Enhancement (1-step)",
-        priceFrom: "From $400",
+        name: "Polishing & Paint Correction",
+        priceFrom: "Starting at $275",
         description:
-          "Removes light swirls and marring, adds significant gloss — great for newer cars with minor defects.",
+          "Professional correction work to restore and enhance your car's exterior — performed at our Victor shop for a controlled, flawless finish.",
         includes: [
-          "Wash, decontamination, and clay bar",
-          "Single-stage machine polish",
-          "Sealant applied to protect the work",
+          "Wash and full decontamination first",
+          "Machine polishing to level defects",
+          "Performed indoors at our Victor shop",
+          "Protection applied to lock in the work",
         ],
       },
       {
-        name: "Two-Stage Correction",
-        priceFrom: "From $750",
+        name: "Paint Enhancement Detail Package",
+        priceFrom: "Starting at $375",
         description:
-          "Our most popular correction tier — removes the majority of swirls and scratches.",
+          "Our mobile option — a full detail plus a one-step polish that removes up to 50–60% of minor defects, done in your driveway.",
         includes: [
-          "Full prep including iron fallout removal",
-          "Compound + polish steps",
-          "Paint thickness readings throughout",
-          "Coating or sealant recommended",
+          "Full interior and exterior detail",
+          "One-step machine polish",
+          "Removes up to 50–60% of swirls and marring",
+          "Completely mobile — we come to you",
         ],
+        popular: true,
       },
       {
-        name: "Show-Quality Correction",
+        name: "Multi-Stage Correction",
         priceFrom: "Custom quote",
         description:
-          "For serious enthusiasts — near-perfect finish under any lighting.",
+          "For serious defects or show-quality goals — multiple compound and polish stages, quoted after we see the paint.",
         includes: [
           "Multi-stage compound, polish, and refine",
-          "Extended time on each panel",
-          "Full before/after documentation",
-          "Paired with a multi-year ceramic coating",
+          "Extended time on every panel",
+          "Best paired with a ceramic coating",
         ],
       },
     ],
@@ -230,55 +236,56 @@ export const services: Service[] = [
     shortTitle: "Boat & Marine",
     icon: "⛵",
     metaDescription:
-      "Mobile boat detailing and marine detailing in Victor, NY and the Finger Lakes. Oxidation removal, gelcoat polishing, interior cleaning. We come to your slip, storage lot, or home.",
+      "Mobile boat detailing and marine detailing in Victor, NY and the Finger Lakes at $25 per foot. Hull and topside wash, interior clean, metal polish, gloss enhancement. We come to your slip, storage lot, or home.",
     summary:
       "Full-service marine detailing for power boats, sailboats, and pontoons — at your slip, storage lot, or driveway.",
     intro:
-      "Marine environments are brutal on gelcoat and metal. Sun, water, and time produce oxidation that makes hulls look chalky and dull long before the boat is actually old. We perform full marine detailing across the Finger Lakes region — Canandaigua Lake, Honeoye Lake, Seneca Lake, Conesus, Hemlock, and Lake Ontario — removing oxidation, polishing gelcoat, detailing interiors, and applying marine-grade sealants that actually stand up to the environment.",
+      "Marine environments are brutal on gelcoat and metal. Sun, water, and time produce oxidation that makes hulls look chalky and dull long before the boat is actually old. We perform full marine detailing across the Finger Lakes region — Canandaigua Lake, Honeoye Lake, Seneca Lake, Conesus, Hemlock, and Lake Ontario — washing hulls and topsides, deep-cleaning interiors, polishing metal, and applying a gloss enhancement that actually stands up to the environment.",
     features: [
-      "Gelcoat oxidation removal and machine compounding",
-      "Marine-grade sealants and ceramic coatings",
-      "Vinyl seat cleaning, conditioning, and mildew treatment",
-      "Hull bottom cleaning (where water access permits)",
+      "Full exterior hull and topside wash",
+      "Interior vinyl and surfaces cleaned and UV-protected",
+      "Compartments vacuumed out and cleaned appropriately",
       "Metal polishing — stainless, chrome, and aluminum",
-      "Service at slip, storage, or your home",
-      "Pre-season and post-season packages available",
+      "One-step gloss enhancement polish and sealant on the exterior",
+      "Windows cleaned",
+      "Service at your slip, storage lot, or home",
     ],
     pricing: [
       {
-        name: "Wash & Protect",
-        priceFrom: "From $10/ft",
+        name: "Basic Marine Detail",
+        priceFrom: "$25 per foot",
         description:
-          "A maintenance-level detail to keep your boat looking fresh during the season.",
+          "Our complete marine detail, priced by boat length — a full-day service that resets your boat inside and out.",
         includes: [
-          "Full exterior wash and rinse",
-          "Spray-on sealant for gloss and bead",
-          "Interior wipe-down and vacuum",
-          "Windows and metal polish",
+          "Full exterior hull and topside wash",
+          "Interior vinyl cleaned and UV-protected",
+          "Compartments vacuumed and cleaned",
+          "Metal polished — stainless, chrome, aluminum",
+          "One-step gloss enhancement polish/sealant",
+          "Windows cleaned",
         ],
+        popular: true,
       },
       {
-        name: "Oxidation Removal + Polish",
-        priceFrom: "From $28/ft",
+        name: "Oxidation Removal & Gelcoat Correction",
+        priceFrom: "Custom quote",
         description:
-          "Our flagship marine detail — brings dull, chalky hulls back to deep gloss.",
+          "For chalky, sun-dulled hulls — machine compounding that brings the gelcoat back to a deep gloss. Quoted by length and condition.",
         includes: [
           "Machine compounding to remove oxidation",
           "Polish step for clarity and gloss",
-          "Marine-grade sealant applied",
-          "Interior deep clean and vinyl condition",
+          "Marine-grade protection applied",
         ],
       },
       {
         name: "Marine Ceramic Coating",
         priceFrom: "Custom quote",
         description:
-          "Long-term protection for gelcoat — hydrophobic, UV-resistant, and dramatically easier to maintain.",
+          "Long-term protection for gelcoat — hydrophobic, UV-resistant, and dramatically easier to maintain season over season.",
         includes: [
           "Full prep and oxidation removal",
           "Marine-specific ceramic coating",
           "Multi-year protection",
-          "Annual inspection visit included",
         ],
       },
     ],
@@ -296,11 +303,11 @@ export const services: Service[] = [
     shortTitle: "RV Detailing",
     icon: "🚐",
     metaDescription:
-      "Mobile RV detailing in Victor, NY, Rochester, and the Finger Lakes. Oxidation removal, wash and wax, roof cleaning, interior deep clean. Class A, C, travel trailers, and fifth wheels.",
+      "Mobile RV detailing in Victor, NY, Rochester, and the Finger Lakes. Wash and wax, oxidation removal, roof cleaning, interior deep clean. Class A, C, travel trailers, and fifth wheels — quoted by length.",
     summary:
-      "Full detailing for RVs, travel trailers, fifth wheels, and campers — at your storage lot or driveway.",
+      "Full detailing for RVs, travel trailers, fifth wheels, and campers — at your storage lot or driveway, quoted by length and condition.",
     intro:
-      "An RV detail is really three jobs in one: a very large exterior with heavy oxidation from sun exposure, a roof that needs specialized cleaning to protect seals and membranes, and a lived-in interior that needs the same care as a home. We bring our mobile setup to your RV wherever it's stored — on your property, at a storage lot in Farmington or Canandaigua, or at a seasonal site in the Finger Lakes.",
+      "An RV detail is really three jobs in one: a very large exterior with heavy oxidation from sun exposure, a roof that needs specialized cleaning to protect seals and membranes, and a lived-in interior that needs the same care as a home. We bring our mobile setup to your RV wherever it's stored — on your property, at a storage lot in Farmington or Canandaigua, or at a seasonal site in the Finger Lakes. Because size and condition vary so much, RV work is quoted per job — call or text with the length and a photo or two and we'll give you a fast, honest number.",
     features: [
       "Full exterior wash, compound, and seal",
       "Roof cleaning with membrane-safe products",
@@ -313,9 +320,9 @@ export const services: Service[] = [
     pricing: [
       {
         name: "RV Wash & Wax",
-        priceFrom: "From $8/ft",
+        priceFrom: "Quoted by length",
         description:
-          "Seasonal maintenance — wash, wax, and a clean roof.",
+          "Seasonal maintenance — wash, wax, and a clean roof. Text us your RV's length for a fast quote.",
         includes: [
           "Full exterior hand wash",
           "Spray wax for gloss",
@@ -325,9 +332,9 @@ export const services: Service[] = [
       },
       {
         name: "Full RV Detail",
-        priceFrom: "From $18/ft",
+        priceFrom: "Quoted by length",
         description:
-          "Our most popular RV package — exterior and interior reset.",
+          "Our most complete RV package — exterior compound and seal plus a full interior reset.",
         includes: [
           "Machine compound for oxidation",
           "Long-lasting sealant",
@@ -335,6 +342,7 @@ export const services: Service[] = [
           "Interior vacuum, wipe-down, and deep clean",
           "Seals and slide-outs inspected and conditioned",
         ],
+        popular: true,
       },
       {
         name: "Pre-Storage / Winterization Detail",
@@ -367,33 +375,31 @@ export const services: Service[] = [
     summary:
       "Specialist detailing for motorcycles, ATVs, UTVs, side-by-sides, and snowmobiles — done carefully, by hand, at your garage.",
     intro:
-      "Power sports vehicles need a different approach than cars. Exposed chrome, raw aluminum, painted plastics, rubber seals, and electronics all sit inches from each other. We use the right chemistry and the right technique for each surface — no pressure-washing sensitive electronics, no harsh chemicals on raw metals, no machine polishing where hand work is safer.",
+      "Power sports vehicles need a different approach than cars. Exposed chrome, raw aluminum, painted plastics, rubber seals, and electronics all sit inches from each other. We use the right chemistry and the right technique for each surface — no pressure-washing sensitive electronics, no harsh chemicals on raw metals, no machine polishing where hand work is safer. Every power sports job is quoted individually — call or text with what you ride and we'll give you a number.",
     features: [
       "Motorcycle detailing — chrome, paint, and leather all treated properly",
       "ATV & UTV deep cleaning after mud and trail use",
       "Snowmobile detailing — salt removal and pre-storage protection",
       "Chrome and metal polishing by hand",
       "Plastic and vinyl conditioning",
-      "Chain cleaning and lube (motorcycles)",
       "Seasonal storage prep available",
     ],
     pricing: [
       {
         name: "Motorcycle Detail",
-        priceFrom: "From $150",
+        priceFrom: "Custom quote",
         description:
-          "Full motorcycle detail — chrome, paint, leather, and engine bay.",
+          "Full motorcycle detail — chrome, paint, and leather, each treated with the right products.",
         includes: [
           "Hand wash and rinse",
           "Chrome and metal polish",
-          "Paint sealant",
+          "Paint protection applied",
           "Leather cleaning and conditioning",
-          "Chain clean and lube",
         ],
       },
       {
         name: "ATV / UTV / Side-by-Side",
-        priceFrom: "From $175",
+        priceFrom: "Custom quote",
         description:
           "Full detail for off-road vehicles — mud, dust, and trail residue removed carefully.",
         includes: [
@@ -402,17 +408,18 @@ export const services: Service[] = [
           "Wheel and tire detailing",
           "Engine bay cleaning (where safe)",
         ],
+        popular: true,
       },
       {
         name: "Snowmobile Detail",
-        priceFrom: "From $150",
+        priceFrom: "Custom quote",
         description:
           "Spring cleanup or pre-storage detail to protect against salt corrosion.",
         includes: [
           "Full exterior clean",
           "Salt removal and neutralization",
           "Metal polish",
-          "Storage-prep sealant",
+          "Storage-prep protection",
         ],
       },
     ],
