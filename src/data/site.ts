@@ -52,6 +52,10 @@ export const site = {
     { day: "Sun", open: "Closed", close: "" },
   ],
   priceRange: "$$",
+  // Online booking (Square Appointments). Leave empty until the owner's
+  // Square account exists — every "Book Online" CTA across the site renders
+  // automatically once this URL is set, and stays hidden while it's empty.
+  bookingUrl: "",
   social: {
     facebook: "https://www.facebook.com/dreysmobiledetailing/",
     instagram: "https://www.instagram.com/dreysmobiledetailing/",
@@ -68,3 +72,5 @@ export const telHref = `tel:${site.phone.tel}`;
 export const smsHref = `sms:${site.phone.tel}`;
 // mailto link
 export const mailHref = `mailto:${site.email}`;
+// Online booking link, or null while booking isn't live yet
+export const bookingHref: string | null = site.bookingUrl || null;

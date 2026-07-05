@@ -1,5 +1,5 @@
 ---
-import { site, telHref } from "../data/site";
+import { site, telHref, bookingHref } from "../data/site";
 import { services } from "../data/services";
 import { u } from "../data/url";
 
@@ -81,6 +81,12 @@ const navItems = [
 
     <!-- CTA + mobile toggle -->
     <div class="flex items-center gap-2">
+      {bookingHref && (
+        <a href={bookingHref} class="btn btn-ghost hidden md:inline-flex" target="_blank" rel="noopener">
+          <span aria-hidden="true">📅</span>
+          Book Online
+        </a>
+      )}
       <a href={telHref} class="btn btn-primary hidden md:inline-flex">
         <span aria-hidden="true">📞</span>
         Call Now
@@ -124,6 +130,11 @@ const navItems = [
         <a href={`sms:${site.phone.tel}`} class="btn btn-ghost w-full">
           💬 Text Us
         </a>
+        {bookingHref && (
+          <a href={bookingHref} class="btn btn-ghost w-full" target="_blank" rel="noopener">
+            📅 Book Online
+          </a>
+        )}
       </div>
     </nav>
   </div>

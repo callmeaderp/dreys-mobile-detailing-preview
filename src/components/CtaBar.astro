@@ -1,5 +1,5 @@
 ---
-import { site, telHref, smsHref } from "../data/site";
+import { site, telHref, smsHref, bookingHref } from "../data/site";
 import { u } from "../data/url";
 
 export interface Props {
@@ -32,9 +32,15 @@ const {
           <a href={smsHref} class="btn btn-ghost text-base">
             💬 Text Us
           </a>
-          <a href={u("/contact/")} class="btn btn-ghost text-base">
-            📅 Request Booking
-          </a>
+          {bookingHref ? (
+            <a href={bookingHref} class="btn btn-ghost text-base" target="_blank" rel="noopener">
+              📅 Book Online
+            </a>
+          ) : (
+            <a href={u("/contact/")} class="btn btn-ghost text-base">
+              📅 Request Booking
+            </a>
+          )}
         </div>
       </div>
     </div>

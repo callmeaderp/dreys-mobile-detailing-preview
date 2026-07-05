@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import CtaBar from "../../components/CtaBar.astro";
 import ServiceCard from "../../components/ServiceCard.astro";
 import { services } from "../../data/services";
-import { site, telHref } from "../../data/site";
+import { site, telHref, bookingHref } from "../../data/site";
 import { u } from "../../data/url";
 
 export function getStaticPaths() {
@@ -76,9 +76,15 @@ const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
         <a href={telHref} class="btn btn-primary">
           📞 Call for a Quote
         </a>
-        <a href={u("/contact/")} class="btn btn-ghost">
-          Request a Booking
-        </a>
+        {bookingHref ? (
+          <a href={bookingHref} class="btn btn-ghost" target="_blank" rel="noopener">
+            📅 Book Online
+          </a>
+        ) : (
+          <a href={u("/contact/")} class="btn btn-ghost">
+            Request a Booking
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -137,9 +143,15 @@ const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
                 </li>
               ))}
             </ul>
-            <a href={u("/contact/")} class={`btn ${tier.popular ? "btn-primary" : "btn-dark"} w-full`}>
-              Request this package
-            </a>
+            {bookingHref ? (
+              <a href={bookingHref} class={`btn ${tier.popular ? "btn-primary" : "btn-dark"} w-full`} target="_blank" rel="noopener">
+                Book this package
+              </a>
+            ) : (
+              <a href={u("/contact/")} class={`btn ${tier.popular ? "btn-primary" : "btn-dark"} w-full`}>
+                Request this package
+              </a>
+            )}
           </div>
         ))}
       </div>

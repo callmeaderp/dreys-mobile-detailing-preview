@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { site, telHref, smsHref, mailHref } from "../data/site";
+import { site, telHref, smsHref, mailHref, bookingHref } from "../data/site";
 
 const title = "Contact & Book | Drey's Mobile Detailing — Victor, NY";
 const description =
@@ -35,6 +35,14 @@ const breadcrumbs = [
           <div class="text-3xl font-bold mb-1">{site.phone.display}</div>
           <div class="text-sm">Fastest way to reach us</div>
         </a>
+
+        {bookingHref && (
+          <a href={bookingHref} class="card bg-brand-900 border-brand-900 text-white block hover:bg-brand-800 transition-colors" target="_blank" rel="noopener">
+            <div class="text-xs uppercase tracking-wider font-bold text-accent-300 mb-1">Book online</div>
+            <div class="text-xl font-semibold mb-1">See live availability &amp; reserve your spot</div>
+            <div class="text-sm text-ink-300">Pick a date, pay your deposit, done →</div>
+          </a>
+        )}
 
         <!-- Email -->
         <a href={mailHref} class="card bg-white block">
