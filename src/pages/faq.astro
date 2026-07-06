@@ -92,7 +92,7 @@ const faqSchema = {
       <div class="space-y-3">
         {faqs.map((faq, i) => (
           <details class="group card bg-white open:border-accent-400" open={i === 0}>
-            <summary class="flex justify-between items-start gap-4 cursor-pointer list-none">
+            <summary class="flex justify-between items-center min-h-11 gap-4 cursor-pointer list-none">
               <h2 class="text-lg font-semibold text-brand-900 pr-4">{faq.q}</h2>
               <span class="text-accent-500 text-2xl font-light leading-none mt-1 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
