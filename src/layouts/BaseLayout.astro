@@ -2,7 +2,6 @@
 import { site } from "../data/site";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import PreviewBanner from "../components/PreviewBanner.astro";
 import { u } from "../data/url";
 import "../styles/global.css";
 
@@ -185,7 +184,6 @@ if (schema) {
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-accent-500 focus:text-brand-950 focus:px-3 focus:py-2 focus:rounded-md">
       Skip to content
     </a>
-    <PreviewBanner />
     <Nav />
     <main id="main">
       <slot />
