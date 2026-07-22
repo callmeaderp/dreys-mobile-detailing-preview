@@ -1,39 +1,78 @@
-# Drey's Mobile Detailing — Preview Build
+# Drey's Mobile Detailing
 
-Preview rebuild of [dreysmobiledetailing.com](https://dreysmobiledetailing.com),
-hosted at: **https://callmeaderp.github.io/dreys-mobile-detailing-preview/**
+Astro/Tailwind static preview rebuild for Drey's Mobile Detailing in Victor, New York.
 
-Built with [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com).
+Preview: <https://callmeaderp.github.io/dreys-mobile-detailing-preview/>
 
-Sections marked `PLACEHOLDER` contain invented content awaiting real
-replacements (pricing, reviews, gallery photos, portrait). Sections marked
-`DRAFT` are written copy awaiting review. These markers are removed before
-the site moves to the production domain.
+The preview uses real service/pricing data, customer reviews, processed gallery photos, and final owner art. It remains intentionally `noindex` until the production-domain cutover.
 
-## Local development
+## Development
+
+Requires Node 22.12 or newer.
 
 ```sh
-npm install
-npm run dev        # local dev server at http://localhost:4321/dreys-mobile-detailing-preview/
-npm run build      # static build to ./dist
-npm run preview    # serve the build locally
+npm ci
+npm run dev
+npm run build
+npm run preview
 ```
 
-## Deploy
-
-Pushes to `main` trigger `.github/workflows/deploy.yml`, which builds with
-`astro build` and publishes `dist/` to GitHub Pages.
+The preview base path is `/dreys-mobile-detailing-preview/`. Use `u(path)` from `src/data/url.ts` for internal and static-asset links so local development, the project-path preview, and the future root-domain build remain consistent.
 
 ## Structure
 
-```
+```text
 src/
-├── components/      # Nav, Footer, CtaBar, ServiceCard, Testimonial,
-│                    # Placeholder, PreviewBanner
-├── data/            # site.ts (NAP, hours, social), services.ts
-│                    # (6 services with pricing tiers), url.ts (base helper)
-├── layouts/         # BaseLayout.astro — meta, schema, OG, font preloads
-├── pages/           # Home, About, Contact, FAQ, Gallery, Service Area,
-│                    # Services index, /services/[slug] detail pages, 404
-└── styles/          # global.css — Tailwind theme tokens, shared component CSS
+├── assets/gallery/       processed public gallery images
+├── components/           navigation, footer, CTA, service and testimonial UI
+├── data/
+│   ├── site.ts           NAP, contact/social data, service area, analytics, booking URL
+│   ├── services.ts       service catalog, pricing, features, and route slugs
+│   └── url.ts            base-aware URL helper
+├── layouts/
+│   └── BaseLayout.astro  metadata, canonical/OG tags, schema, noindex default
+├── pages/                home, services, gallery, area, about, FAQ, contact, 404
+└── styles/global.css     Tailwind theme and shared styling
 ```
+
+Business-wide content belongs in `src/data/site.ts`; service-specific content belongs in `src/data/services.ts`. Avoid scattering duplicate phone numbers, addresses, booking URLs, prices, or service facts into page templates.
+
+## Deployment
+
+Pushes to `main` run `.github/workflows/deploy.yml`, install with `npm ci`, build the static site, and publish `dist/` to GitHub Pages.
+
+The surrounding private workspace at `../` contains audits, legacy-site captures, source photos, screenshot tools, and launch planning. This repository contains only the deployable website.
+
+## Production cutover
+
+Do not simply point DNS at the preview build. Follow the private workspace's deployment checklist. The cutover includes:
+
+1. update `site` and `base` in `astro.config.mjs` for `dreysmobiledetailing.com`;
+2. change `BaseLayout.astro` so pages are no longer `noindex` by default;
+3. update `robots.txt`, canonical URLs, sitemap output, Open Graph URLs, and structured-data URLs;
+4. replace the booking URL with the final Square Appointments target when ready;
+5. verify the contact path/form decision;
+6. configure DNS/HTTPS and redirects;
+7. rebuild and recrawl every route before removing the preview guard.
+
+## Verification
+
+At minimum before a push:
+
+```sh
+npm run build
+```
+
+Then serve the build and use the outer workspace's Playwright regression harness:
+
+```sh
+npm run preview
+cd ..
+python3 mobile-regression-check.py
+```
+
+Review every route at desktop and small-phone widths. Check navigation, CTA tap targets, overflow, gallery crop/quality, service cards and detail pages, contact links, FAQ interaction, 404 behavior, canonical/OG metadata, structured data, sitemap, and the presence of `noindex` on the preview.
+
+Processed gallery assets should contain no EXIF/GPS metadata and retain the established plate-blur treatment. Source originals live only in the private outer workspace.
+
+For business decisions, source evidence, booking/payment planning, and launch operations, read `../README.md`, `../CLAUDE.md`, and the routed private workspace documentation.
